@@ -1,0 +1,24 @@
+scenarios:
+  - id: "retail_cxo_01"
+    title: "Regional Promotion Underperformance vs. Spending"
+    badge: "Promotion Analysis"
+    question: "Why did Product X underperform in Region A despite higher promotional activity?"
+    description: "Correlates regional POS scanner data with Nielsen market share reports and distributor out-of-stock logs."
+    suggested: true
+    difficulty: "Complex"
+
+  - id: "retail_cxo_02"
+    title: "Inventory Pressure vs. Declining Sales"
+    badge: "Supply Chain Risk"
+    question: "Which products show declining sales alongside inventory pressure, and what supporting evidence is available?"
+    description: "Evaluates SKU velocity vs distribution center holding costs and consumer sentiment surveys."
+    suggested: true
+    difficulty: "Medium"
+
+  - id: "retail_cxo_03"
+    title: "Sales Data vs. Market Research Discrepancy"
+    badge: "Conflict Detection"
+    question: "Are there conflicts between sales data and market research regarding consumer brand loyalty, and how should the answer qualify them?"
+    description: "Surfaces contradictory metrics between internal syndicated sales trends and external focus group findings."
+    suggested: true
+    difficulty: "High"

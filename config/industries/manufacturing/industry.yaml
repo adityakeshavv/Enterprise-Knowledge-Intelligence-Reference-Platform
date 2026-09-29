@@ -1,0 +1,30 @@
+id: "manufacturing"
+name: "Industrial & Advanced Manufacturing"
+tagline: "Operational intelligence across MES, maintenance records, and equipment manuals."
+badge_color: "emerald"
+icon: "factory"
+version: "1.0.0"
+
+kpis:
+  - id: "oee"
+    label: "Overall Equipment Effectiveness"
+    unit: "%"
+    target: 85.0
+  - id: "mtbf"
+    label: "Mean Time Between Failures"
+    unit: "hrs"
+    target: 350.0
+  - id: "scrap_rate"
+    label: "Scrap Rate"
+    unit: "%"
+    target: 1.2
+
+plants:
+  - id: "plant_a"
+    name: "Plant A (Automotive Powertrain)"
+    location: "Detroit, MI"
+    lines: ["Line 1", "Line 2", "Line 3", "Line 4"]
+  - id: "plant_b"
+    name: "Plant B (Precision Casting)"
+    location: "Cleveland, OH"
+    lines: ["Line A", "Line B"]

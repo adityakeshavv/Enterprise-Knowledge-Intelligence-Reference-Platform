@@ -1,0 +1,16 @@
+terms:
+  - term: "OEE"
+    definition: "Overall Equipment Effectiveness, calculated as Availability x Performance x Quality."
+    synonyms: ["equipment effectiveness", "line efficiency"]
+  - term: "MTBF"
+    definition: "Mean Time Between Failures, average operating hours between unscheduled breakdowns."
+    synonyms: ["failure interval", "reliability metric"]
+  - term: "Downtime"
+    definition: "Unscheduled production stoppage due to equipment fault, changeover, or starvation."
+    synonyms: ["line stoppage", "unplanned outage", "machine breakdown"]
+  - term: "Hydraulic Valve Seizure"
+    definition: "Mechanical binding of high-pressure fluid directional control valves due to thermal expansion or particulate contamination."
+    synonyms: ["actuator lockup", "proportional valve freeze", "pressure drop fault"]
+  - term: "PPM"
+    definition: "Parts Per Million defect rate in supplier incoming quality inspection."
+    synonyms: ["defect rate", "supplier quality metric"]

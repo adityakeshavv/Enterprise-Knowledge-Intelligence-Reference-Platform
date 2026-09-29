@@ -1,0 +1,13 @@
+terms:
+  - term: "Sell-Through"
+    definition: "Percentage of inventory received from a manufacturer or supplier that is sold to end consumers within a given period."
+    synonyms: ["STR", "conversion rate"]
+  - term: "OOS"
+    definition: "Out of Stock rate, percentage of audit visits or transactions where a requested SKU was unavailable on retail shelves."
+    synonyms: ["stockout", "shelf vacancy"]
+  - term: "Promotional Lift"
+    definition: "Incremental percentage increase in unit sales volume attributable directly to marketing promotions or price discounts."
+    synonyms: ["deal lift", "promo uplift"]
+  - term: "SKU"
+    definition: "Stock Keeping Unit, distinct identifier for each unique item/variant sold."
+    synonyms: ["item code", "product identifier"]
