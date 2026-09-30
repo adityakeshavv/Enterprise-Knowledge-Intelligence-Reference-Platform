@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3044.3453708333327 1313.9" width="3044.3453708333327" height="1313.9" style="--bg:#1F1F1F;--fg:#CCCCCC;--line:#CCCCCC;--accent:#0078D4;--muted:#CCCCCCCC;--surface:#181818;--border:#CCCCCC;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<g class="subgraph" data-id="L1_Experience" data-label="1. Experience Layer (CXO Frontend UI)">
+  <rect x="413.19950000000006" y="560.5000000000001" width="1645.609" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="413.19950000000006" y="560.5000000000001" width="1645.609" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="425.19950000000006" y="574.5000000000001" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">1. Experience Layer (CXO Frontend UI)</text>
+</g>
+<g class="subgraph" data-id="L2_Application" data-label="2. Application Layer (Backend Core)">
+  <rect x="1511.896" y="862.3000000000001" width="519.141" height="181.8" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1511.896" y="862.3000000000001" width="519.141" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1523.896" y="876.3000000000001" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">2. Application Layer (Backend Core)</text>
+</g>
+<g class="subgraph" data-id="L3_Governance" data-label="3. Governance, Security &amp; Policy Layer">
+  <rect x="2456.229870833333" y="1092.1" width="548.1154999999999" height="181.8" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="2456.229870833333" y="1092.1" width="548.1154999999999" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="2468.229870833333" y="1106.1" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">3. Governance, Security &amp; Policy Layer</text>
+</g>
+<g class="subgraph" data-id="L4_Orchestration" data-label="4. Orchestration Layer">
+  <rect x="2124.6738958333335" y="58" width="352.25149999999996" height="266.70000000000005" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="2124.6738958333335" y="58" width="352.25149999999996" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="2136.6738958333335" y="72" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">4. Orchestration Layer</text>
+</g>
+<g class="subgraph" data-id="L5_Intelligence" data-label="5. Multi-Agent Intelligence Layer">
+  <rect x="2138.8221208333334" y="384.70000000000005" width="622.4832083333333" height="266.70000000000005" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="2138.8221208333334" y="384.70000000000005" width="622.4832083333333" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="2150.8221208333334" y="398.70000000000005" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">5. Multi-Agent Intelligence Layer</text>
+</g>
+<g class="subgraph" data-id="L6_Knowledge" data-label="6. Knowledge &amp; Retrieval Layer">
+  <rect x="1615.5973708333333" y="711.4000000000001" width="924.4689999999999" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1615.5973708333333" y="711.4000000000001" width="924.4689999999999" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1627.5973708333333" y="725.4000000000001" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">6. Knowledge &amp; Retrieval Layer</text>
+</g>
+<g class="subgraph" data-id="L7_Observability" data-label="7. Observability &amp; Telemetry Layer">
+  <rect x="40" y="1080.1" width="713.284" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="1080.1" width="713.284" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="52" y="1094.1" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">7. Observability &amp; Telemetry Layer</text>
+</g>
+<g class="subgraph" data-id="L8_Config" data-label="8. Configuration Layer (Hot-Swappable Industry Packs)">
+  <rect x="1388.9974999999997" y="1098.1" width="519.587" height="130.7" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="1388.9974999999997" y="1098.1" width="519.587" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="1400.9974999999997" y="1112.1" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">8. Configuration Layer (Hot-Swappable Industry Packs)</text>
+</g>
+<polyline class="edge" data-from="L1_Experience" data-to="API" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1236.0040000000001,657.4000000000001 1236.0040000000001,844.3000000000001 1674.2063333333333,844.3000000000001 1674.2063333333333,906.3000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="API" data-to="Auth" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1729.4578,943.2 1729.4578,967.2 1768.686,967.2 1768.686,1074.1 2629.1783708333332,1074.1 2629.178370833333,1141.55" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="ConfigLoader" data-to="L8_Config" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1648.791,1028.1000000000001 1648.7909999999997,1098.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="SessionMgr" data-to="Planner" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1897.3615,1028.1000000000001 1897.3615,1062.1 2967.813204166666,1062.1 2967.813204166666,40 2265.0183958333337,40 2265.0183958333337,102" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="ToolRouter" data-to="DocAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2257.8245958333337,308.70000000000005 2257.8245958333337,366.70000000000005 2222.850620833334,366.70000000000005 2222.8506208333333,428.70000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ToolRouter" data-to="SQLAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2308.5997958333337,308.70000000000005 2308.5997958333332,366.70000000000005 2404.3211208333337,366.70000000000005 2404.321120833333,428.70000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ToolRouter" data-to="ExtAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2359.3749958333333,308.70000000000005 2359.3749958333333,354.70000000000005 2646.525329166667,354.70000000000005 2646.525329166667,428.70000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="DocAgent" data-to="VecStore" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2222.8506208333333,465.6 2222.8506208333333,489.6 1773.7258708333334,489.6 1773.7258708333334,755.4000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="SQLAgent" data-to="SQLDB" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2404.321120833333,465.6 2404.321120833333,489.6 2101.543870833333,489.6 2101.543870833333,755.4000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="ExtAgent" data-to="ExtAPIs" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2646.525329166667,465.6 2646.525329166667,489.6 2405.6498708333334,489.6 2405.6498708333334,755.4000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="SynthAgent" data-to="API" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2432.3377041666668,638.4000000000001 2432.3377041666663,693.4000000000001 2550.066370833333,693.4000000000001 2550.066370833333,844.3000000000001 1743.2706666666663,844.3000000000001 1743.2706666666663,906.3000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ToolRouter" data-to="AuditLog" data-style="dotted" data-arrow-start="false" data-arrow-end="true" points="2333.9873958333337,308.70000000000005 2333.9873958333337,846.025 2884.7488708333326,846.025 2884.7488708333326,1141.55" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ValAgent" data-to="AuditLog" data-style="dotted" data-arrow-start="false" data-arrow-end="true" points="2496.9164541666664,550.5 2496.9164541666664,846.025 2884.7488708333326,846.025 2884.7488708333326,1141.55" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="WorkflowState" data-to="LatencyTrace" data-style="dotted" data-arrow-start="false" data-arrow-end="true" points="2223.5702291666666,223.8 2223.5702291666666,235.8 2196.0493958333336,235.8 2196.0493958333336,366.70000000000005 402.19950000000017,366.70000000000005 402.19949999999994,1141.55" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="TokenMetrics" data-style="dotted" data-arrow-start="false" data-arrow-end="true" points="1646.5806,943.2 1646.5806,955.2 1527.896,955.2 1527.896,1062.1 628.1299999999999,1062.1 628.1299999999999,1141.55" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="ConfigLoader" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1688.0192,943.2 1688.0192,967.2 1648.791,967.2 1648.791,991.2" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="API" data-to="SessionMgr" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="1770.8964,943.2 1770.8964,955.2 1897.3615,955.2 1897.3615,991.2" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="Auth" data-to="Policy" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2629.178370833333,1178.45 2629.178370833333,1221" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="Planner" data-to="WorkflowState" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2265.0183958333337,138.9 2265.0183958333337,186.9" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="WorkflowState" data-to="ToolRouter" data-style="solid" data-arrow-start="true" data-arrow-end="true" points="2306.4665625000002,223.8 2306.4665625000002,235.8 2333.9873958333337,235.8 2333.9873958333337,271.8" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="DocAgent" data-to="ValAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2222.8506208333333,465.6 2222.8506208333333,489.6 2496.9164541666664,489.6 2496.9164541666664,513.6" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="SQLAgent" data-to="ValAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2404.321120833333,465.6 2404.321120833333,489.6 2496.9164541666664,489.6 2496.9164541666664,513.6" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ExtAgent" data-to="ValAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2646.525329166667,465.6 2646.525329166667,489.6 2496.9164541666664,489.6 2496.9164541666664,513.6" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="ValAgent" data-to="SynthAgent" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="2441.8832875000003,550.5 2441.8832875000003,562.5 2432.3377041666668,562.5 2432.3377041666668,601.5" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="node" data-id="UI_Query" data-label="Query Interface &amp; Scenario Buttons" data-shape="rectangle">
+  <rect x="747.3845" y="601.5" width="246.46599999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="870.6175" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Query Interface &amp; Scenario Buttons</text>
+</g>
+<g class="node" data-id="UI_Answer" data-label="Executive Summary &amp; Answer View" data-shape="rectangle">
+  <rect x="1260.7485000000001" y="601.5" width="246.46599999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1383.9815" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Executive Summary &amp; Answer View</text>
+</g>
+<g class="node" data-id="UI_Evidence" data-label="Source &amp; Evidence Panel (Clickable Proof)" data-shape="rectangle">
+  <rect x="429.19950000000006" y="601.5" width="290.1849999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="574.292" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Source &amp; Evidence Panel (Clickable Proof)</text>
+</g>
+<g class="node" data-id="UI_Trace" data-label="Agent Live Activity &amp; Reasoning Feed" data-shape="rectangle">
+  <rect x="1535.2145" y="601.5" width="259.063" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1664.746" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Agent Live Activity &amp; Reasoning Feed</text>
+</g>
+<g class="node" data-id="UI_Switch" data-label="Industry / Workspace Selector" data-shape="rectangle">
+  <rect x="1822.2775000000001" y="601.5" width="220.53099999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1932.5430000000001" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Industry / Workspace Selector</text>
+</g>
+<g class="node" data-id="UI_Admin" data-label="Admin &amp; Source Management" data-shape="rectangle">
+  <rect x="1021.8504999999999" y="601.5" width="210.898" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1127.2994999999999" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Admin &amp; Source Management</text>
+</g>
+<g class="node" data-id="API" data-label="REST / Streaming API Layer" data-shape="rectangle">
+  <rect x="1605.142" y="906.3000000000001" width="207.19299999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1708.7385" y="924.7500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">REST / Streaming API Layer</text>
+</g>
+<g class="node" data-id="SessionMgr" data-label="Session &amp; Context State Manager" data-shape="rectangle">
+  <rect x="1779.686" y="991.2" width="235.35099999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1897.3615" y="1009.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Session &amp; Context State Manager</text>
+</g>
+<g class="node" data-id="ConfigLoader" data-label="Dynamic Configuration Loader" data-shape="rectangle">
+  <rect x="1538.896" y="991.2" width="219.79" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1648.791" y="1009.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Dynamic Configuration Loader</text>
+</g>
+<g class="node" data-id="Auth" data-label="Authentication &amp; Server-Side RBAC" data-shape="rectangle">
+  <rect x="2505.2043708333326" y="1141.55" width="247.94799999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2629.178370833333" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Authentication &amp; Server-Side RBAC</text>
+</g>
+<g class="node" data-id="Policy" data-label="Security Boundaries &amp; Source Access Control" data-shape="rectangle">
+  <rect x="2472.229870833333" y="1221" width="313.89699999999993" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2629.178370833333" y="1239.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Security Boundaries &amp; Source Access Control</text>
+</g>
+<g class="node" data-id="AuditLog" data-label="Immutable Audit Trail Logger" data-shape="rectangle">
+  <rect x="2781.1523708333325" y="1141.55" width="207.19299999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2884.7488708333326" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Immutable Audit Trail Logger</text>
+</g>
+<g class="node" data-id="Planner" data-label="Query Router / Planner" data-shape="rectangle">
+  <rect x="2176.6123958333337" y="102" width="176.81199999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2265.0183958333337" y="120.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Query Router / Planner</text>
+</g>
+<g class="node" data-id="WorkflowState" data-label="State Machine &amp; Execution Tracker" data-shape="rectangle">
+  <rect x="2140.6738958333335" y="186.9" width="248.68899999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2265.0183958333337" y="205.35000000000002" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">State Machine &amp; Execution Tracker</text>
+</g>
+<g class="node" data-id="ToolRouter" data-label="Tool Dispatcher &amp; Permission Guard" data-shape="rectangle">
+  <rect x="2207.0493958333336" y="271.8" width="253.87599999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2333.9873958333337" y="290.25" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Tool Dispatcher &amp; Permission Guard</text>
+</g>
+<g class="node" data-id="DocAgent" data-label="Document Agent" data-shape="rectangle">
+  <rect x="2154.8221208333334" y="428.70000000000005" width="136.05700000000002" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2222.8506208333333" y="447.15000000000003" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Document Agent</text>
+</g>
+<g class="node" data-id="SQLAgent" data-label="Structured Data Agent" data-shape="rectangle">
+  <rect x="2318.879120833333" y="428.70000000000005" width="170.88399999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2404.321120833333" y="447.15000000000003" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Structured Data Agent</text>
+</g>
+<g class="node" data-id="ExtAgent" data-label="External Intelligence Agent" data-shape="rectangle">
+  <rect x="2547.7453291666666" y="428.70000000000005" width="197.55999999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2646.525329166667" y="447.15000000000003" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">External Intelligence Agent</text>
+</g>
+<g class="node" data-id="ValAgent" data-label="Evidence &amp; Validation Agent (Conflicts/Grounding)" data-shape="rectangle">
+  <rect x="2331.8169541666666" y="513.6" width="330.1989999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2496.9164541666664" y="532.0500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Evidence &amp; Validation Agent (Conflicts/Grounding)</text>
+</g>
+<g class="node" data-id="SynthAgent" data-label="Synthesis Agent (CXO Formatting)" data-shape="rectangle">
+  <rect x="2313.180204166667" y="601.5" width="238.31499999999994" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2432.3377041666668" y="619.95" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Synthesis Agent (CXO Formatting)</text>
+</g>
+<g class="node" data-id="VecStore" data-label="Vector DB / Hybrid Index + Metadata Filter" data-shape="rectangle">
+  <rect x="1631.5973708333333" y="755.4000000000001" width="284.25699999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1773.7258708333334" y="773.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Vector DB / Hybrid Index + Metadata Filter</text>
+</g>
+<g class="node" data-id="SQLDB" data-label="Read-Only SQL Connector (PostgreSQL / CSV)" data-shape="rectangle">
+  <rect x="1943.8543708333332" y="755.4000000000001" width="315.379" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2101.543870833333" y="773.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Read-Only SQL Connector (PostgreSQL / CSV)</text>
+</g>
+<g class="node" data-id="ExtAPIs" data-label="Allowlisted External API Adapters" data-shape="rectangle">
+  <rect x="2287.2333708333335" y="755.4000000000001" width="236.833" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2405.6498708333334" y="773.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Allowlisted External API Adapters</text>
+</g>
+<g class="node" data-id="LatencyTrace" data-label="Latency &amp; Stage Timing" data-shape="rectangle">
+  <rect x="313.423" y="1141.55" width="177.55299999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="402.1995" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Latency &amp; Stage Timing</text>
+</g>
+<g class="node" data-id="TokenMetrics" data-label="Token / Model Usage Tracker" data-shape="rectangle">
+  <rect x="518.976" y="1141.55" width="218.308" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="628.13" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Token / Model Usage Tracker</text>
+</g>
+<g class="node" data-id="EvalTelemetry" data-label="Retrieval &amp; Grounding Evaluator" data-shape="rectangle">
+  <rect x="56" y="1141.55" width="229.423" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="170.7115" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Retrieval &amp; Grounding Evaluator</text>
+</g>
+<g class="node" data-id="IndYAML" data-label="/config/industries/&lt;industry&gt;/" data-shape="rectangle">
+  <rect x="1404.9974999999997" y="1141.55" width="215.344" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1512.6694999999997" y="1160" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">/config/industries/&lt;industry&gt;/</text>
+</g>
+<g class="node" data-id="ConfigData" data-label="• industry.yaml  • terminology.yaml
+• agents.yaml    • sources.yaml
+• scenarios.yaml • evaluation.yaml" data-shape="rectangle">
+  <rect x="1648.3414999999998" y="1141.55" width="244.24299999999994" height="70.7" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1770.4629999999997" y="1176.8999999999999" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)"><tspan x="1770.4629999999997" dy="-12.350000000000001">• industry.yaml  • terminology.yaml</tspan><tspan x="1770.4629999999997" dy="16.900000000000002">• agents.yaml    • sources.yaml</tspan><tspan x="1770.4629999999997" dy="16.900000000000002">• scenarios.yaml • evaluation.yaml</tspan></text>
+</g>
+</svg>
