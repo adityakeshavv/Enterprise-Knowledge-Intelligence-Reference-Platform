@@ -1,0 +1,17 @@
+id: "manufacturing"
+name: "Manufacturing & Industrial Operations"
+description: "Reference implementation for manufacturing plant downtime, asset health, and maintenance intelligence."
+version: "1.0.0"
+active: true
+primary_entities:
+  - "Plant"
+  - "Production Line"
+  - "Equipment Component"
+  - "Work Order"
+  - "Supplier Batch"
+default_scenario_id: "mfg-downtime-factors"
+modules:
+  enable_documents: true
+  enable_structured_sql: true
+  enable_external_api: true
+  enable_evidence_validation: true

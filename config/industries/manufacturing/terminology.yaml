@@ -1,0 +1,17 @@
+industry: "manufacturing"
+terms:
+  OEE:
+    full_name: "Overall Equipment Effectiveness"
+    definition: "Standard metric measuring manufacturing productivity across Availability, Performance, and Quality."
+  MTBF:
+    full_name: "Mean Time Between Failures"
+    definition: "The predicted elapsed time between inherent failures of a mechanical system during normal operating hours."
+  SOP:
+    full_name: "Standard Operating Procedure"
+    definition: "Prescribed step-by-step instructions for equipment maintenance and quality compliance."
+  PPM:
+    full_name: "Parts Per Million"
+    definition: "Defect rate measurement used to evaluate supplier batch quality."
+  Scrappage:
+    full_name: "Material Scrappage Rate"
+    definition: "Percentage of produced items rejected due to defect tolerances."

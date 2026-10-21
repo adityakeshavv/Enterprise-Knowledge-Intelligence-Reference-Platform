@@ -1,0 +1,16 @@
+industry: "retail_cpg"
+scenarios:
+  - id: "retail-promo-underperformance"
+    title: "Regional Promotional Underperformance vs Inventory"
+    category: "Commercial Strategy"
+    difficulty: "Cross-Source Reasoning"
+    question: "Why did Product X underperform in Region A despite higher promotional spend, and what inventory pressures were reported?"
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["promo_roi", "out_of_stock_rate", "sell_through_percent"]
+  - id: "retail-consumer-sentiment-conflict"
+    title: "Sales Velocity vs Market Research Discrepancy"
+    category: "Market Intelligence"
+    difficulty: "Conflict Detection"
+    question: "What do consumer research documents indicate about category decline, and where do they conflict with actual POS transaction trends?"
+    expected_agents: ["document_intelligence", "structured_data", "evidence_validation", "synthesis"]
+    highlight_metrics: ["pos_volume", "sentiment_score"]
