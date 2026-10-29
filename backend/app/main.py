@@ -9,6 +9,8 @@ from app.api.config import router as config_router
 from app.api.query import router as query_router
 from app.api.documents import router as documents_router
 from app.api.sql import router as sql_router
+from app.api.audit import router as audit_router
+from app.api.evaluation import router as evaluation_router
 from app.ingestion.pipeline import pipeline
 from app.retrieval.hybrid_index import hybrid_index
 
@@ -54,6 +56,8 @@ app.include_router(config_router, prefix="/api")
 app.include_router(query_router, prefix="/api")
 app.include_router(documents_router, prefix="/api")
 app.include_router(sql_router, prefix="/api")
+app.include_router(audit_router, prefix="/api")
+app.include_router(evaluation_router, prefix="/api")
 
 @app.get("/api/health")
 def health_check():

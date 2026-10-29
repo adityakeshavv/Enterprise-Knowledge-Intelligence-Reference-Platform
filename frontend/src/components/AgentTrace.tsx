@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { TraceStep } from "../types";
-import { CheckCircle2, ChevronDown, ChevronRight, Cpu, Clock } from "lucide-react";
+import { CheckCircle2, ChevronDown, ChevronRight, Cpu, Clock, AlertTriangle, Loader2 } from "lucide-react";
 
 interface AgentTraceProps {
   steps: TraceStep[];
@@ -15,7 +15,12 @@ export const AgentTrace: React.FC<AgentTraceProps> = ({ steps, totalLatencyMs })
     <div className="trace-container">
       <div
         className="trace-header"
+        role="button"
+        tabIndex={0}
         onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
+        aria-controls="agent-trace-details"
+        onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setExpanded(!expanded); } }}
       >
         <div className="trace-title">
           <Cpu size={16} className="text-accent" />
@@ -30,17 +35,22 @@ export const AgentTrace: React.FC<AgentTraceProps> = ({ steps, totalLatencyMs })
       </div>
 
       {expanded && (
-        <div className="trace-body">
+        <div className="trace-body" id="agent-trace-details">
           {steps.map((step) => {
             const isSelected = activeStepId === step.step_id;
             return (
               <div
                 key={step.step_id}
                 className={`trace-step ${isSelected ? "step-selected" : ""}`}
+                role="button"
+                tabIndex={0}
                 onClick={() => setActiveStepId(isSelected ? null : step.step_id)}
+                aria-expanded={isSelected}
+                aria-label={`${isSelected ? "Hide" : "Show"} details for ${step.agent_label}`}
+                onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActiveStepId(isSelected ? null : step.step_id); } }}
               >
                 <div className="step-indicator">
-                  <CheckCircle2 size={16} className="icon-success" />
+                  {step.status === "completed" ? <CheckCircle2 size={16} className="icon-success" /> : step.status === "warning" ? <AlertTriangle size={16} className="text-warning" /> : <Loader2 size={16} className="animate-spin text-accent" />}
                   <div className="step-connector" />
                 </div>
                 <div className="step-content">
@@ -49,7 +59,7 @@ export const AgentTrace: React.FC<AgentTraceProps> = ({ steps, totalLatencyMs })
                     <span className="step-duration">{step.duration_ms.toFixed(1)}ms</span>
                   </div>
                   <p className="step-message">{step.business_message}</p>
-                  {step.technical_detail && (
+                  {step.technical_detail && isSelected && (
                     <div className="step-technical">
                       <span className="tech-label">Technical Trace:</span>
                       <code>{step.technical_detail}</code>

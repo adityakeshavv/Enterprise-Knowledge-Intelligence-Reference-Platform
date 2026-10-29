@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import type { CitationItem } from "../types";
-import { X, FileText, Database, CheckCircle, FileSpreadsheet, ScanLine } from "lucide-react";
+import { X, FileText, Database, Info, FileSpreadsheet, ScanLine } from "lucide-react";
 
 interface EvidenceDrawerProps {
   citation: CitationItem | null;
@@ -8,6 +8,31 @@ interface EvidenceDrawerProps {
 }
 
 export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ citation, onClose }) => {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+  useEffect(() => {
+    if (!citation) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    panelRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeRef.current();
+      if (event.key === "Tab" && panelRef.current) {
+        const focusable = panelRef.current.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (document.activeElement === panelRef.current) { event.preventDefault(); (event.shiftKey ? last : first).focus(); }
+        else if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocus?.focus();
+    };
+  }, [citation]);
   if (!citation) return null;
 
   const getSourceIcon = (type: string, ref: string) => {
@@ -18,17 +43,17 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ citation, onClos
   };
 
   return (
-    <div className="drawer-overlay" onClick={onClose}>
-      <div className="drawer-panel" onClick={(e) => e.stopPropagation()}>
+    <div className="drawer-overlay" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <div className="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="evidence-dialog-title" tabIndex={-1} ref={panelRef}>
         <div className="drawer-header">
           <div className="drawer-title-group">
             {getSourceIcon(citation.source_type, citation.reference)}
             <div>
               <span className="source-tag">{citation.source_type.replace("_", " ")}</span>
-              <h2 className="drawer-title">{citation.title}</h2>
+              <h2 className="drawer-title" id="evidence-dialog-title">{citation.title}</h2>
             </div>
           </div>
-          <button className="btn-close" onClick={onClose}>
+          <button className="btn-close" onClick={onClose} aria-label="Close evidence details">
             <X size={18} />
           </button>
         </div>
@@ -44,7 +69,7 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ citation, onClos
 
           {/* Evidence Snippet */}
           <div className="drawer-section">
-            <span className="section-label">Verified Record Content</span>
+            <span className="section-label">Evidence excerpt</span>
             <div className="snippet-box">
               {citation.source_type === "SQL_QUERY" ? (
                 <pre><code>{citation.snippet}</code></pre>
@@ -70,8 +95,8 @@ export const EvidenceDrawer: React.FC<EvidenceDrawerProps> = ({ citation, onClos
           )}
 
           <div className="drawer-footer-note">
-            <CheckCircle size={14} className="icon-success" />
-            <span>Cryptographically ground-checked against raw enterprise source.</span>
+            <Info size={14} className="text-accent" />
+            <span>Review the source reference and excerpt when assessing this evidence.</span>
           </div>
         </div>
       </div>

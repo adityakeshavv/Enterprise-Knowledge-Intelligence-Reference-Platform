@@ -1,0 +1,32 @@
+industry: "pharma"
+terms:
+  AE:
+    full_name: "Adverse Event"
+    definition: "Any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product, regardless of causal relationship."
+  SAE:
+    full_name: "Serious Adverse Event"
+    definition: "An adverse event resulting in death, life-threatening experience, inpatient hospitalization, persistent disability, or congenital anomaly."
+  GCP:
+    full_name: "Good Clinical Practice"
+    definition: "International ethical and scientific quality standard (ICH E6) for designing, conducting, and reporting clinical trials involving human subjects."
+  IND:
+    full_name: "Investigational New Drug"
+    definition: "Application filed with regulatory authorities (such as the US FDA) requesting permission to administer an investigational agent to humans."
+  NDA:
+    full_name: "New Drug Application"
+    definition: "Formal regulatory dossier proposing commercial approval and marketing authorization for a drug based on verified clinical trial evidence."
+  ICH:
+    full_name: "International Council for Harmonisation"
+    definition: "Harmonized technical standards and guidelines for pharmaceutical development between FDA, EMA, PMDA, and global regulatory authorities."
+  eCTD:
+    full_name: "Electronic Common Technical Document"
+    definition: "Standardized electronic specification for transferring regulatory applications from pharma sponsors to health authorities."
+  cGMP:
+    full_name: "Current Good Manufacturing Practice"
+    definition: "FDA regulations (21 CFR Parts 210/211) assuring the identity, strength, quality, and purity of drug products."
+  Primary Endpoint:
+    full_name: "Primary Clinical Endpoint"
+    definition: "The predetermined, statistically powered measure evaluated in a trial to demonstrate significant therapeutic benefit versus placebo."
+  Dissolution Rate:
+    full_name: "In Vitro Dissolution Specification"
+    definition: "The percentage of active pharmaceutical ingredient (API) released and dissolved into solution over a specified time window."

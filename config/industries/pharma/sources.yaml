@@ -1,0 +1,47 @@
+industry: "pharma"
+sources:
+  structured:
+    type: "relational_db"
+    database_url_env: "DATABASE_URL"
+    default_schema: "public"
+    tables:
+      - name: "clinical_trial_metrics"
+        description: "Trial participant counts, primary endpoint efficacy percentages, and adverse event incidence rates by study phase."
+        key_columns: ["trial_id", "drug_name", "phase", "participant_count", "efficacy_rate", "primary_endpoint_met", "adverse_event_rate"]
+      - name: "adverse_event_reports"
+        description: "Post-marketing and clinical trial individual safety case reports (ICSRs), symptoms, severity, and reporting latency."
+        key_columns: ["report_id", "drug_name", "reaction", "severity", "is_serious", "days_to_report", "reporting_date"]
+      - name: "pharma_batch_quality"
+        description: "cGMP commercial lot release records, active ingredient purity (%), dissolution rates (mins), and microbiological limits."
+        key_columns: ["batch_id", "drug_name", "purity_percentage", "dissolution_rate_mins", "microbial_limit_cfu", "release_status"]
+  unstructured:
+    type: "vector_store"
+    collection_name: "pharma_docs"
+    registered_documents:
+      - id: "DOC-PROTOCOL-CV301"
+        filename: "Clinical_Trial_Protocol_CardioVastin_PH3.pdf"
+        department: "Clinical Operations"
+        classification: "Confidential"
+      - id: "DOC-FDA-NDA218492"
+        filename: "FDA_Regulatory_Approval_Summary_CardioVastin.pdf"
+        department: "Regulatory Affairs"
+        classification: "Public"
+      - id: "DOC-SOP-PV042"
+        filename: "SOP-PV-042_Adverse_Event_Reporting_Triage.pdf"
+        department: "Pharmacovigilance & Safety"
+        classification: "Internal"
+      - id: "DOC-GMP-RELEASE"
+        filename: "Quality_Batch_Release_SOP_Cleanroom_GMP.pdf"
+        department: "Quality Assurance"
+        classification: "Internal"
+  external:
+    type: "allowlisted_api"
+    endpoints:
+      - name: "fda_openfda_feed"
+        description: "FDA openFDA Drug Adverse Events and Product Labeling REST API"
+        endpoint_url: "https://api.fda.gov/drug/event.json"
+        allowlisted: true
+      - name: "clinicaltrials_gov_api"
+        description: "National Institutes of Health ClinicalTrials.gov API v2"
+        endpoint_url: "https://clinicaltrials.gov/api/v2/studies"
+        allowlisted: true

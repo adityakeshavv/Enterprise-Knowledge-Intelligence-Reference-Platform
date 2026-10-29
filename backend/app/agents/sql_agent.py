@@ -69,6 +69,45 @@ class StructuredDataAgent:
                     TableColumnInfo(name="oee_percentage", type="FLOAT"),
                 ]
             ),
+            TableSchemaInfo(
+                table_name="clinical_trial_metrics",
+                description="Clinical trial enrollment, primary efficacy percentage, and adverse event incidence.",
+                columns=[
+                    TableColumnInfo(name="trial_id", type="VARCHAR(50)", primary_key=True),
+                    TableColumnInfo(name="drug_name", type="VARCHAR(100)"),
+                    TableColumnInfo(name="phase", type="VARCHAR(50)"),
+                    TableColumnInfo(name="participant_count", type="INTEGER"),
+                    TableColumnInfo(name="efficacy_rate", type="FLOAT"),
+                    TableColumnInfo(name="primary_endpoint_met", type="BOOLEAN"),
+                    TableColumnInfo(name="adverse_event_rate", type="FLOAT"),
+                ]
+            ),
+            TableSchemaInfo(
+                table_name="adverse_event_reports",
+                description="Pharmacovigilance adverse event case reports, seriousness, and reporting delays.",
+                columns=[
+                    TableColumnInfo(name="report_id", type="VARCHAR(50)", primary_key=True),
+                    TableColumnInfo(name="trial_id", type="VARCHAR(50)"),
+                    TableColumnInfo(name="drug_name", type="VARCHAR(100)"),
+                    TableColumnInfo(name="reaction", type="VARCHAR(150)"),
+                    TableColumnInfo(name="severity", type="VARCHAR(50)"),
+                    TableColumnInfo(name="is_serious", type="BOOLEAN"),
+                    TableColumnInfo(name="days_to_report", type="INTEGER"),
+                    TableColumnInfo(name="outcome", type="VARCHAR(100)"),
+                ]
+            ),
+            TableSchemaInfo(
+                table_name="pharma_batch_quality",
+                description="Analytical chemistry batch release records, HPLC purity, dissolution times, and microbial limits.",
+                columns=[
+                    TableColumnInfo(name="batch_id", type="VARCHAR(50)", primary_key=True),
+                    TableColumnInfo(name="drug_name", type="VARCHAR(100)"),
+                    TableColumnInfo(name="purity_percentage", type="FLOAT"),
+                    TableColumnInfo(name="dissolution_rate_mins", type="FLOAT"),
+                    TableColumnInfo(name="microbial_limit_cfu", type="INTEGER"),
+                    TableColumnInfo(name="release_status", type="VARCHAR(50)"),
+                ]
+            ),
         ]
 
     def _generate_sql(self, query: str) -> str:
@@ -101,7 +140,27 @@ class StructuredDataAgent:
                 print(f"Gemini Text-to-SQL fallback: {e}")
 
         # Deterministic Semantic Synthesizer Fallback
-        if "oee" in q_lower or "efficiency" in q_lower or "scrap" in q_lower:
+        # Pharma Queries
+        if "efficacy" in q_lower or "endpoint" in q_lower or "trial" in q_lower or "cardiovastin" in q_lower:
+            return (
+                "SELECT trial_id, drug_name, phase, participant_count, efficacy_rate, primary_endpoint_met, adverse_event_rate "
+                "FROM clinical_trial_metrics "
+                "ORDER BY efficacy_rate DESC LIMIT 10;"
+            )
+        elif "adverse" in q_lower or "safety" in q_lower or "sae" in q_lower or "expedited" in q_lower or "symptom" in q_lower:
+            return (
+                "SELECT report_id, drug_name, reaction, severity, is_serious, days_to_report, outcome "
+                "FROM adverse_event_reports "
+                "ORDER BY days_to_report DESC LIMIT 10;"
+            )
+        elif "lot" in q_lower or "purity" in q_lower or "dissolution" in q_lower or "gmp" in q_lower or "4891" in q_lower:
+            return (
+                "SELECT batch_id, drug_name, purity_percentage, dissolution_rate_mins, microbial_limit_cfu, release_status "
+                "FROM pharma_batch_quality "
+                "ORDER BY purity_percentage DESC LIMIT 10;"
+            )
+        # Manufacturing Queries
+        elif "oee" in q_lower or "efficiency" in q_lower or "scrap" in q_lower:
             return (
                 "SELECT line_id, ROUND(AVG(oee_percentage), 1) AS avg_oee, "
                 "SUM(actual_units) AS total_units, SUM(scrap_units) AS total_scrap "

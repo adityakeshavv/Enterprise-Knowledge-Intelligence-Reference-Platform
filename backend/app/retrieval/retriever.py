@@ -8,6 +8,8 @@ class DocumentRetriever:
 
     def __init__(self, index=hybrid_index):
         self.index = index
+        self.is_default_index = (index is hybrid_index)
+        self.loaded_industry: Optional[str] = None
 
     def retrieve(
         self,
@@ -16,10 +18,32 @@ class DocumentRetriever:
         department: Optional[str] = None,
         user_role: str = "CXO"
     ) -> List[Dict[str, Any]]:
+        # Auto-initialize or switch from active industry directory when using the global default index
+        if self.is_default_index:
+            try:
+                from pathlib import Path
+                from app.core.config_loader import config_loader
+                from app.ingestion.pipeline import pipeline
+
+                active_ind = config_loader.active_industry_id
+                if self.loaded_industry != active_ind or len(self.index.chunks) == 0:
+                    data_dir = Path(config_loader.config_dir).resolve() / active_ind / "data" / "unstructured"
+                    if not data_dir.exists():
+                        data_dir = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries" / active_ind / "data" / "unstructured"
+                    if data_dir.exists():
+                        self.index.clear()
+                        chunks, _ = pipeline.ingest_directory(data_dir)
+                        self.index.add_chunks(chunks)
+                        self.loaded_industry = active_ind
+            except Exception:
+                pass
+
         # Map user role to maximum clearance
         role_clearance_map = {
             "CXO": "Restricted",
             "Admin": "Restricted",
+            "Auditor": "Restricted",
+            "Quality Analyst": "Restricted",
             "Operator": "Internal"
         }
         max_clearance = role_clearance_map.get(user_role, "Internal")
@@ -29,6 +53,8 @@ class DocumentRetriever:
             filters["department"] = department
 
         ranked = self.index.search(query=query, top_k=top_k, filters=filters)
+
+        from app.core.guardrails import security_guardrails
 
         output = []
         for rank, (chunk, score) in enumerate(ranked, start=1):
@@ -40,7 +66,7 @@ class DocumentRetriever:
                 title=f"{chunk.metadata.get('filename', 'Document')} — {chunk.section_header or chunk.sheet_name or 'Passage'}",
                 source_type="DOCUMENT_SOP" if chunk.source_type == "pdf_section" else ("SQL_QUERY" if chunk.source_type == "excel_sheet" else "DOCUMENT_SOP"),
                 reference=reference,
-                snippet=chunk.text,
+                snippet=security_guardrails.sanitize_untrusted_text(chunk.text),
                 metadata={
                     "doc_id": chunk.doc_id,
                     "score": round(score, 3),

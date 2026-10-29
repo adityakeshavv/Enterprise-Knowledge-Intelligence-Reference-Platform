@@ -18,6 +18,7 @@ class AuditLog(Base):
     __tablename__ = "audit_logs"
 
     id = Column(Integer, primary_key=True, index=True)
+    audit_id = Column(String(50), index=True, nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow, index=True)
     user_id = Column(Integer, nullable=True)
     username = Column(String(50), nullable=False)
@@ -27,6 +28,13 @@ class AuditLog(Base):
     status = Column(String(20), nullable=False, default="COMPLETED")
     execution_time_ms = Column(Float, nullable=False)
     agents_invoked = Column(String(255), nullable=True)
+    sources_accessed = Column(Text, nullable=True)
+    citations_count = Column(Integer, default=0)
+    grounding_score = Column(Float, nullable=True)
+    conflicts_count = Column(Integer, default=0)
+    is_abstained = Column(Boolean, default=False)
+    ip_address = Column(String(50), nullable=True)
+    trace_stages = Column(Text, nullable=True)
 
 # Manufacturing Domain Seed Tables (Week 2 Foundation, expanded in Week 4 & 8)
 class PlantDowntimeEvent(Base):
@@ -73,3 +81,40 @@ class ProductionLineMetric(Base):
     actual_units = Column(Integer, nullable=False)
     scrap_units = Column(Integer, nullable=False)
     oee_percentage = Column(Float, nullable=False)
+
+# Pharmaceutical & Life Sciences Domain Tables
+class ClinicalTrialMetric(Base):
+    __tablename__ = "clinical_trial_metrics"
+
+    trial_id = Column(String(50), primary_key=True, index=True)
+    drug_name = Column(String(100), index=True, nullable=False)
+    phase = Column(String(50), nullable=False)
+    participant_count = Column(Integer, nullable=False)
+    efficacy_rate = Column(Float, nullable=False)
+    primary_endpoint_met = Column(Boolean, nullable=False)
+    adverse_event_rate = Column(Float, nullable=False)
+
+class AdverseEventReport(Base):
+    __tablename__ = "adverse_event_reports"
+
+    report_id = Column(String(50), primary_key=True, index=True)
+    trial_id = Column(String(50), index=True, nullable=False)
+    drug_name = Column(String(100), index=True, nullable=False)
+    reaction = Column(String(150), nullable=False)
+    severity = Column(String(50), nullable=False)
+    is_serious = Column(Boolean, nullable=False)
+    days_to_report = Column(Integer, nullable=False)
+    reporting_date = Column(DateTime, nullable=False)
+    outcome = Column(String(100), nullable=False)
+
+class PharmaBatchQuality(Base):
+    __tablename__ = "pharma_batch_quality"
+
+    batch_id = Column(String(50), primary_key=True, index=True)
+    drug_name = Column(String(100), index=True, nullable=False)
+    purity_percentage = Column(Float, nullable=False)
+    dissolution_rate_mins = Column(Float, nullable=False)
+    microbial_limit_cfu = Column(Integer, nullable=False)
+    release_status = Column(String(50), nullable=False)
+    release_date = Column(DateTime, nullable=False)
+

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from app.agents.sql_agent import sql_agent
 from app.retrieval.sql_sandbox import sql_sandbox, SQLSecurityError
-from app.core.rbac import get_current_user
+from app.core.rbac import get_current_user, require_roles
 from app.db.models import User
 from app.schemas.sql import SQLQueryRequest, SQLQueryResult, DatabaseSchemaResponse
 
@@ -37,9 +37,9 @@ def execute_natural_query(
 @router.post("/test-sandbox")
 def test_sql_sandbox(
     payload: TestSandboxRequest,
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(require_roles(["Admin", "CXO"]))
 ):
-    """Directly tests SQL AST sanitization and security enforcement."""
+    """Directly tests SQL AST sanitization and security enforcement (Admin/CXO only)."""
     try:
         sanitized = sql_sandbox.validate_and_sanitize(payload.raw_sql)
         columns, rows, duration_ms, _ = sql_sandbox.execute_safe_query(payload.raw_sql)

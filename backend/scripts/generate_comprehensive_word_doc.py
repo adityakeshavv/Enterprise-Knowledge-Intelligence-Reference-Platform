@@ -194,10 +194,10 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
     meta_table = doc.add_table(rows=4, cols=2)
     meta_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     meta_data = [
-        ("Platform Version", "v5.0 - Production Release (Weeks 1 to 5: Multi-Agent Orchestration)"),
+        ("Platform Version", "v8.0 - Production Release (Modular Intent-Driven Multi-Agent Pipeline & Interactive Flowchart)"),
         ("Date Completed", "October 2026"),
-        ("System Architecture", "Dual-Agent Grounded System + Dynamic DAG Orchestrator"),
-        ("Test Suite Status", "63 / 63 Automated Tests Passing (100% Green)")
+        ("System Architecture", "9-Stage Modular DAG Pipeline + Dynamic AgentRegistry + Interactive Evidence Graph"),
+        ("Test Suite Status", "91 / 91 Automated Tests Passing (100% Green)")
     ]
     for row_idx, (k, v) in enumerate(meta_data):
         row = meta_table.rows[row_idx]
@@ -260,7 +260,7 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
     # -------------------------------------------------------------
     # Weekly Implementation Breakdown
     # -------------------------------------------------------------
-    h1 = doc.add_heading("3. Implementation Breakdown (Weeks 1 to 4)", level=1)
+    h1 = doc.add_heading("3. Implementation Breakdown (Weeks 1 to 7)", level=1)
     h1.paragraph_format.space_before = Pt(18)
     h1.paragraph_format.space_after = Pt(6)
 
@@ -292,6 +292,18 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
     h2 = doc.add_heading("Week 5: Multi-Agent Orchestration & Executive Synthesis", level=2)
     doc.add_paragraph(
         "Connected specialized sub-agents into a unified, autonomous DAG execution workflow. Implemented the QueryRouter and DAG Planner for natural language intent decomposition (Structured-only, Document-only, and Cross-source hybrid). Created the WorkflowState machine for context isolation and dynamic telemetry tracing. Built the executive SynthesisAgent that consolidates tabular SQL metrics and narrative document excerpts into a polished C-level briefing with dynamic KPI metric cards (Total Downtime, Primary Root Cause %, Historical Reduction, and Financial Impact) and automated operational conflict detection (CONF-01). Extended the API with real-time Server-Sent Events (SSE) streaming for live sub-agent status tracking."
+    )
+
+    # Week 6
+    h2 = doc.add_heading("Week 6: Evidence & Trust (Anti-Hallucination, Empirical Verification & Safe Abstention)", level=2)
+    doc.add_paragraph(
+        "Engineered the dedicated EvidenceValidationAgent, serving as an immutable pre-synthesis verification gate across all platform outputs. Implemented mathematical claim grounding precision scoring (0.0 to 1.0) by matching critical tokens (numbers, part codes, dates, line identifiers) directly against verified raw citations and tabular SQL rows. Developed automated cross-source conflict detection, catching both temporal contradictions (CONF-01: March 10 maintenance completion vs. March 14 telemetry stoppage) and supplier quality discrepancies (CONF-02: supplier specification of <500 PPM vs. incoming inspection telemetry of 1,850 PPM). Deployed a strict Zero-Hallucination Safe Abstention protocol that detects queries targeting unindexed domains or facilities (e.g., paint shop chemical burns, executive payroll) and explicitly refuses to extrapolate, preserving executive decision integrity. Furthermore, classified all operational outputs into VERIFIED_FACT (backed by verifiable citations) and ANALYTICAL_INFERENCE (derived projections and recommendations) with dedicated badges in the React user interface."
+    )
+
+    # Week 7
+    h2 = doc.add_heading("Week 7: Production UX & Interactive Evidence Graph", level=2)
+    doc.add_paragraph(
+        "Elevated the platform to an enterprise-grade decision suite by engineering the Interactive Evidence Graph (EvidenceGraphView) and comprehensive production UX workflows. Built an automated graph relationship builder (EvidenceGraphBuilder) that structures every query, fact, telemetry source, SOP document, and operational conflict into a directed node-edge graph topology with explicit semantic relations (RETRIEVED, GROUNDS, DERIVED_FROM, CONTRADICTS). Enabled interactive multi-modal exploration allowing users to click any graph node to inspect underlying database rows or PDF excerpts in the Evidence Drawer. Added multi-layer filtering (All Nodes, Verified Facts, SQL Telemetry, SOP Manuals, Discrepancies), smooth zoom/pan controls, a responsive Split-View layout (Briefing on left, Graph on right), one-click clipboard copying, and full Markdown briefing report export (.md) with auditable provenance."
     )
 
     # Embed Diagram 2 (SQL Sandbox)
@@ -380,6 +392,42 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
     )
 
     # -------------------------------------------------------------
+    # Modular Multi-Agent Orchestration Flowchart
+    # -------------------------------------------------------------
+    h1_orch = doc.add_heading("4. Modular Intent-Driven Multi-Agent Orchestration Pipeline", level=1)
+    h1_orch.paragraph_format.space_before = Pt(18)
+    h1_orch.paragraph_format.space_after = Pt(6)
+
+    doc.add_paragraph(
+        "The Nebula9 agent orchestration architecture has been refactored into a modular, intent-driven, "
+        "extensible, and fully traceable 9-stage pipeline. In this architecture, an incoming query is analyzed, "
+        "normalized, classified against a configurable intent taxonomy, routed to authorized workflows, "
+        "investigated across parallel source adapters, extracted into typed empirical evidence, synthesized "
+        "into an executive brief, and verified through a complete lifecycle trace and citation integrity audit."
+    )
+
+    diag_orch = Path(__file__).parent / "report_assets" / "diagram_agent_orchestration_flowchart.png"
+    if diag_orch.exists():
+        doc.add_picture(str(diag_orch), width=Inches(6.4))
+        cap = doc.add_paragraph("Figure 4: Detailed Flowchart of 9-Stage Multi-Agent Orchestration, Tool Invocations, and Artifact Contributions")
+        cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        cap.runs[0].font.size = Pt(8.5)
+        cap.runs[0].font.italic = True
+        cap.paragraph_format.space_after = Pt(12)
+
+    doc.add_paragraph(
+        "Key Agent Responsibilities & Tool Invocations in the Pipeline:\n"
+        "1. Stage 1 — Query Understanding Agent: Extracts domain entities (line_id, plant_id, error_code, part_number), time ranges, and normalizes queries into QueryUnderstandingResult.\n"
+        "2. Stage 2 — Intent Classification Agent: Maps queries to configurable categories (STRUCTURED_TELEMETRY, PROCEDURAL_GUIDANCE, CROSS_SOURCE_INVESTIGATION, QUALITY_SUPPLIER_ANALYSIS) with confidence thresholds and fallback gates.\n"
+        "3. Stage 3 — Query Routing Agent: Queries the dynamic AgentRegistry manifest store and validates RBAC authorization before workflow dispatch.\n"
+        "4. Stage 4 — Investigation Planning Agent: Compiles an actionable InvestigationPlan DAG with explicit completion criteria and sub-questions.\n"
+        "5. Stage 5 & 6 — Parallel Investigation: StructuredDocumentAgent executes read-only SQL queries via the AST-verified Safe SQL Sandbox; UnstructuredDocumentAgent executes hybrid BM25 + dense semantic retrieval with XML defense bounding fences.\n"
+        "6. Stage 7 — Evidence & Detail Extraction Agent: Compiles extracted evidence items, preserves units and timestamps, and evaluates temporal contradiction traps (CONF-01, CONF-02).\n"
+        "7. Stage 8 — Summarizer Agent: Synthesizes executive briefings, dynamic KPI cards, and citation anchors without speculative hallucinations.\n"
+        "8. Stage 9 — Traceability & Audit Agent: Verifies that citations resolve to authentic evidence returned during the execution, checks completeness, validates domain boundaries, and commits immutable audit logs."
+    )
+
+    # -------------------------------------------------------------
     # Security & Verification
     # -------------------------------------------------------------
     h1 = doc.add_heading("5. Comprehensive Security Perimeter & Edge-Case Testing", level=1)
@@ -387,10 +435,10 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
     h1.paragraph_format.space_after = Pt(6)
 
     doc.add_paragraph(
-        "Nebula9 has undergone automated edge-case and penetration testing across 63 unit and integration test suites with a 100% pass rate:"
+        "Nebula9 has undergone automated edge-case and penetration testing across 91 unit and integration test suites with a 100% pass rate:"
     )
 
-    test_table = doc.add_table(rows=10, cols=3)
+    test_table = doc.add_table(rows=14, cols=3)
     test_table.alignment = WD_TABLE_ALIGNMENT.CENTER
     t_headers = [("Test Suite Module", 2.2), ("Security / Functional Edge Case Verified", 3.2), ("Result", 1.0)]
     for col_idx, (h_text, w_in) in enumerate(t_headers):
@@ -403,15 +451,19 @@ def build_word_document(docx_path: Path, diag_paths: tuple):
         set_cell_margins(cell, 70, 70, 90, 90)
 
     t_data = [
+        ("test_modular_orchestration.py (14 tests)", "Modular 9-stage pipeline; query understanding; intent classification; RBAC routing; task DAG planning; structured and unstructured investigation; evidence extraction; summarization; trace & citation audit; dynamic agent registration.", "14 / 14 PASSED"),
+        ("test_evidence_graph.py (5 tests)", "EvidenceGraphBuilder; query, SQL, SOP, finding, and conflict node generation; directed RETRIEVED/GROUNDS/DERIVED_FROM/CONTRADICTS edges; safe abstention boundary graphs; SSE streaming graph payload.", "5 / 5 PASSED"),
+        ("test_evidence_validation.py (9 tests)", "Pre-synthesis EvidenceValidationAgent; empirical claim grounding precision; CONF-01 temporal conflict detection; CONF-02 supplier defect discrepancy; safe abstention on unindexed domains; fact vs inference classification.", "9 / 9 PASSED"),
         ("test_orchestration.py (11 tests)", "Query intent routing; DAG decomposition; concurrent sub-agent execution; state tracking; synthesis briefing; timeline conflict detection; SSE stream endpoint.", "11 / 11 PASSED"),
-        ("test_sql_sandbox.py (11 tests)", "AST validation; DROP, DELETE, INSERT, UPDATE, ALTER, and multi-statement semicolon blocking; table allowlist enforcement; automatic LIMIT 100 clamping.", "11 / 11 PASSED"),
+        ("test_sql_sandbox.py (10 tests)", "AST validation; DROP, DELETE, INSERT, UPDATE, ALTER, and multi-statement semicolon blocking; table allowlist enforcement; automatic LIMIT 100 clamping.", "10 / 10 PASSED"),
         ("test_sql_agent.py (7 tests)", "Text-to-SQL generation; downtime queries; supplier defect calculations; OEE metrics; execution timing and citation provenance; /api/sql endpoints.", "7 / 7 PASSED"),
-        ("test_parsers_and_edge_cases.py (11 tests)", "0-byte empty files; corrupted file headers; prompt injection fuzzing; vector SVG vs raster formats; multi-strategy cascade routing.", "11 / 11 PASSED"),
+        ("test_parsers_and_edge_cases.py (12 tests)", "0-byte empty files; corrupted file headers; prompt injection fuzzing; vector SVG vs raster formats; multi-strategy cascade routing.", "12 / 12 PASSED"),
         ("test_auth_rbac.py (5 tests)", "JWT authentication; PBKDF2 hashing; role clearance enforcement; profile endpoints.", "5 / 5 PASSED"),
         ("test_config_loader.py (4 tests)", "Dynamic YAML loading; hot industry switching (Manufacturing / Retail / Healthcare); error validation.", "4 / 4 PASSED"),
         ("test_document_ingestion.py (4 tests)", "openpyxl Excel parsing; Docling sectioning; RapidOCR visual processing; batch directory ingest.", "4 / 4 PASSED"),
         ("test_document_retrieval.py (5 tests)", "BM25 exact part-number search; semantic query ranking; clearance filtering; Document Agent flow.", "5 / 5 PASSED"),
         ("test_prompt_injection.py (2 tests)", "XML inert evidence fencing; adversarial prompt neutralization.", "2 / 2 PASSED"),
+        ("test_query_flow.py (3 tests)", "End-to-end API query lifecycle; active config switching API; frontend static file serving.", "3 / 3 PASSED"),
     ]
 
     for row_idx, (mod, desc, res) in enumerate(t_data, start=1):

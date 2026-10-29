@@ -1,5 +1,10 @@
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
+from enum import Enum
+
+class FactClassification(str, Enum):
+    VERIFIED_FACT = "VERIFIED_FACT"
+    ANALYTICAL_INFERENCE = "ANALYTICAL_INFERENCE"
 
 class QueryRequest(BaseModel):
     query: str
@@ -37,15 +42,50 @@ class TraceStep(BaseModel):
     technical_detail: Optional[str] = None
     duration_ms: float
 
+class FindingItem(BaseModel):
+    statement: str
+    classification: FactClassification
+    citation_ids: List[str] = []
+    confidence: float = 1.0
+
+class EvidenceGraphNode(BaseModel):
+    id: str
+    label: str
+    node_type: str  # "query", "finding", "sql_source", "doc_source", "conflict"
+    category: Optional[str] = None # "fact", "inference", "telemetry", "sop", "discrepancy"
+    metadata: Dict[str, Any] = {}
+
+class EvidenceGraphEdge(BaseModel):
+    source: str
+    target: str
+    relation: str  # "GROUNDS", "CONTRADICTS", "DERIVED_FROM", "QUERIED_FROM", "RECOMMENDS"
+    is_conflict: bool = False
+
+class EvidenceGraph(BaseModel):
+    nodes: List[EvidenceGraphNode] = []
+    edges: List[EvidenceGraphEdge] = []
+
+class ValidationReport(BaseModel):
+    grounding_score: float  # 0.0 to 1.0
+    supported_claims: List[str] = []
+    unsupported_claims: List[str] = []
+    conflicts: List[ConflictItem] = []
+    is_abstained: bool = False
+    abstention_reason: Optional[str] = None
+
 class QueryResponse(BaseModel):
     query_id: str
     industry_id: str
     query_text: str
     executive_summary: str
     key_findings: List[str]
+    findings: Optional[List[FindingItem]] = None
     metrics: List[MetricItem]
     citations: List[CitationItem]
     conflicts: List[ConflictItem] = []
     confidence_score: float
+    validation_report: Optional[ValidationReport] = None
+    evidence_graph: Optional[EvidenceGraph] = None
+    is_abstained: bool = False
     trace_steps: List[TraceStep]
     total_latency_ms: float

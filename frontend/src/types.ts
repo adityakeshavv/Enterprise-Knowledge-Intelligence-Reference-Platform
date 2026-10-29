@@ -69,16 +69,58 @@ export interface TraceStep {
   duration_ms: number;
 }
 
+export type FactClassification = "VERIFIED_FACT" | "ANALYTICAL_INFERENCE";
+
+export interface FindingItem {
+  statement: string;
+  classification: FactClassification;
+  citation_ids: string[];
+  confidence: number;
+}
+
+export interface ValidationReport {
+  grounding_score: number;
+  supported_claims: string[];
+  unsupported_claims: string[];
+  conflicts: ConflictItem[];
+  is_abstained: boolean;
+  abstention_reason?: string;
+}
+
+export interface EvidenceGraphNode {
+  id: string;
+  label: string;
+  node_type: "query" | "finding" | "sql_source" | "doc_source" | "conflict";
+  category?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface EvidenceGraphEdge {
+  source: string;
+  target: string;
+  relation: string;
+  is_conflict?: boolean;
+}
+
+export interface EvidenceGraph {
+  nodes: EvidenceGraphNode[];
+  edges: EvidenceGraphEdge[];
+}
+
 export interface QueryResponse {
   query_id: string;
   industry_id: string;
   query_text: string;
   executive_summary: string;
   key_findings: string[];
+  findings?: FindingItem[];
   metrics: MetricItem[];
   citations: CitationItem[];
   conflicts: ConflictItem[];
   confidence_score: number;
+  validation_report?: ValidationReport;
+  evidence_graph?: EvidenceGraph;
+  is_abstained?: boolean;
   trace_steps: TraceStep[];
   total_latency_ms: number;
 }

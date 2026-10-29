@@ -2,7 +2,10 @@ import time
 from enum import Enum
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
-from app.schemas.query import TraceStep, CitationItem, ConflictItem, MetricItem
+from app.schemas.query import (
+    TraceStep, CitationItem, ConflictItem, MetricItem,
+    ValidationReport, FindingItem, FactClassification
+)
 from app.schemas.sql import SQLQueryResult
 
 class QueryIntent(str, Enum):
@@ -36,12 +39,24 @@ class WorkflowState(BaseModel):
     sql_result: Optional[SQLQueryResult] = None
     doc_result: Optional[Dict[str, Any]] = None
     
+    # Validation outputs
+    validation_report: Optional[ValidationReport] = None
+    is_abstained: bool = False
+    
     # Aggregated outputs
     citations: List[CitationItem] = Field(default_factory=list)
     conflicts: List[ConflictItem] = Field(default_factory=list)
     metrics: List[MetricItem] = Field(default_factory=list)
+    findings: List[FindingItem] = Field(default_factory=list)
     trace_steps: List[TraceStep] = Field(default_factory=list)
     
+    # Modular Pipeline Additions
+    understanding: Optional[Any] = None
+    classification: Optional[Any] = None
+    investigation_plan: Optional[Any] = None
+    evidence_items: Optional[List[Any]] = None
+    trace_record: Optional[Any] = None
+
     # Telemetry
     start_time: float = Field(default_factory=time.time)
     total_latency_ms: float = 0.0

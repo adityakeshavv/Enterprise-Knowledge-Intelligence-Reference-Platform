@@ -1,0 +1,18 @@
+id: "pharma"
+name: "Pharmaceutical & Life Sciences"
+description: "Enterprise knowledge intelligence for clinical trial outcomes, adverse event pharmacovigilance, FDA regulatory filings, and cGMP batch release compliance."
+version: "1.0.0"
+active: true
+primary_entities:
+  - "Drug / Active Pharmaceutical Ingredient"
+  - "Clinical Trial Protocol"
+  - "Adverse Event (AE / SAE)"
+  - "Patient Cohort"
+  - "Regulatory Submission (IND / NDA)"
+  - "Drug Batch / Production Lot"
+default_scenario_id: "pharma-clinical-efficacy"
+modules:
+  enable_documents: true
+  enable_structured_sql: true
+  enable_external_api: true
+  enable_evidence_validation: true

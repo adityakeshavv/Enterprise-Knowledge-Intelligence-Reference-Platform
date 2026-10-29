@@ -26,9 +26,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error }) => {
     }
   };
 
-  const useDemoAccount = () => {
-    setUsername("cxo_exec");
-    setPassword("Executive2026!");
+  const setAccount = (u: string, p: string) => {
+    setUsername(u);
+    setPassword(p);
   };
 
   return (
@@ -66,7 +66,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error }) => {
             <p>Enter your account details to continue.</p>
           </div>
 
-          <form className="login-form" onSubmit={submit}>
+          <form className="login-form" onSubmit={submit} aria-busy={isSubmitting}>
             <label htmlFor="username">Username</label>
             <div className="login-input-wrap">
               <UserRound size={17} aria-hidden="true" />
@@ -91,9 +91,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, error }) => {
           </form>
 
           <div className="demo-access-card">
-            <div className="demo-access-top"><span className="demo-dot" /> <strong>Demo environment</strong><span className="demo-only">LOCAL ACCESS</span></div>
-            <p>Explore the platform with the executive demo account.</p>
-            <button type="button" onClick={useDemoAccount}>Use demo account <ArrowRight size={14} /></button>
+            <div className="demo-access-top"><span className="demo-dot" /> <strong>Role-Based Demo Personas (RBAC)</strong><span className="demo-only">ENTERPRISE</span></div>
+            <p>Select a persona to test granular permissions and audit logging:</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
+              <button type="button" onClick={() => setAccount("cxo_exec", "Executive2026!")}>CXO Exec</button>
+              <button type="button" onClick={() => setAccount("auditor_dan", "Auditor2026!")}>Auditor</button>
+              <button type="button" onClick={() => setAccount("qa_analyst", "Quality2026!")}>Quality Lead</button>
+              <button type="button" onClick={() => setAccount("operator_line3", "Operator2026!")}>Line Operator</button>
+            </div>
           </div>
 
           <p className="login-help">Need an account? <span>Contact your workspace administrator.</span></p>

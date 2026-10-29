@@ -6,10 +6,15 @@ from sqlalchemy import text
 from app.db.session import SessionLocal
 
 ALLOWLISTED_TABLES = {
+    # Manufacturing
     "plant_downtime_events",
     "maintenance_work_orders",
     "supplier_component_quality",
     "production_line_metrics",
+    # Pharma & Life Sciences
+    "clinical_trial_metrics",
+    "adverse_event_reports",
+    "pharma_batch_quality",
 }
 
 FORBIDDEN_KEYWORDS = {
