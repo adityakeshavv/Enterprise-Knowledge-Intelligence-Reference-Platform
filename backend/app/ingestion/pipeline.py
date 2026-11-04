@@ -1,12 +1,6 @@
 from pathlib import Path
 from typing import List, Tuple, Dict, Any, Optional
 from app.ingestion.models import DocumentMetadata, DocumentChunk, IngestionReport
-from app.ingestion.excel_ingestor import ExcelIngestor
-from app.ingestion.docling_ingestor import DoclingIngestor
-from app.ingestion.vision_ocr import VisionOCRIngestor
-from app.ingestion.pymupdf_ingestor import PyMuPDFIngestor
-from app.ingestion.opendataloader_ingestor import OpenDataLoaderIngestor
-from app.ingestion.local_vision_engine import LocalVisionEngine
 
 class DocumentIngestionPipeline:
     """Unified routing pipeline for parsing enterprise documents with Tiered Hybrid Cascade.
@@ -17,12 +11,54 @@ class DocumentIngestionPipeline:
     """
 
     def __init__(self):
-        self.excel_ingestor = ExcelIngestor()
-        self.docling_ingestor = DoclingIngestor()
-        self.vision_ingestor = VisionOCRIngestor()
-        self.pymupdf_ingestor = PyMuPDFIngestor()
-        self.opendataloader_ingestor = OpenDataLoaderIngestor()
-        self.local_vision_engine = LocalVisionEngine()
+        self._excel_ingestor = None
+        self._docling_ingestor = None
+        self._vision_ingestor = None
+        self._pymupdf_ingestor = None
+        self._opendataloader_ingestor = None
+        self._local_vision_engine = None
+
+    @property
+    def excel_ingestor(self):
+        if self._excel_ingestor is None:
+            from app.ingestion.excel_ingestor import ExcelIngestor
+            self._excel_ingestor = ExcelIngestor()
+        return self._excel_ingestor
+
+    @property
+    def docling_ingestor(self):
+        if self._docling_ingestor is None:
+            from app.ingestion.docling_ingestor import DoclingIngestor
+            self._docling_ingestor = DoclingIngestor()
+        return self._docling_ingestor
+
+    @property
+    def vision_ingestor(self):
+        if self._vision_ingestor is None:
+            from app.ingestion.vision_ocr import VisionOCRIngestor
+            self._vision_ingestor = VisionOCRIngestor()
+        return self._vision_ingestor
+
+    @property
+    def pymupdf_ingestor(self):
+        if self._pymupdf_ingestor is None:
+            from app.ingestion.pymupdf_ingestor import PyMuPDFIngestor
+            self._pymupdf_ingestor = PyMuPDFIngestor()
+        return self._pymupdf_ingestor
+
+    @property
+    def opendataloader_ingestor(self):
+        if self._opendataloader_ingestor is None:
+            from app.ingestion.opendataloader_ingestor import OpenDataLoaderIngestor
+            self._opendataloader_ingestor = OpenDataLoaderIngestor()
+        return self._opendataloader_ingestor
+
+    @property
+    def local_vision_engine(self):
+        if self._local_vision_engine is None:
+            from app.ingestion.local_vision_engine import LocalVisionEngine
+            self._local_vision_engine = LocalVisionEngine()
+        return self._local_vision_engine
 
     def ingest_file(
         self,

@@ -29,6 +29,8 @@ class SearchResponse(BaseModel):
 @router.get("/list")
 def list_indexed_documents():
     """List summary of all documents currently ingested and indexed in memory."""
+    if len(hybrid_index.chunks) == 0:
+        document_retriever.ensure_index_loaded()
     docs = {}
     for chunk in hybrid_index.chunks:
         doc_id = chunk.doc_id

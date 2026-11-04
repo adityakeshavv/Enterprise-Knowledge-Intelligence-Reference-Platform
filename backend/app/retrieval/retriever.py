@@ -12,6 +12,36 @@ class DocumentRetriever:
         self.loaded_industry: Optional[str] = None
         self._industry_chunks_cache: Dict[str, List[DocumentChunk]] = {}
 
+    def ensure_index_loaded(self):
+        """Auto-initialize or switch from active industry directory when using the global default index."""
+        if not self.is_default_index:
+            return
+        try:
+            from pathlib import Path
+            from app.core.config_loader import config_loader
+            from app.ingestion.pipeline import pipeline
+
+            active_ind = config_loader.active_industry_id
+            if self.loaded_industry != active_ind or len(self.index.chunks) == 0:
+                if active_ind in self._industry_chunks_cache:
+                    chunks = self._industry_chunks_cache[active_ind]
+                else:
+                    data_dir = Path(config_loader.config_dir).resolve() / active_ind / "data" / "unstructured"
+                    if not data_dir.exists():
+                        data_dir = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries" / active_ind / "data" / "unstructured"
+                    if data_dir.exists():
+                        chunks, _ = pipeline.ingest_directory(data_dir)
+                        self._industry_chunks_cache[active_ind] = chunks
+                    else:
+                        chunks = []
+                
+                self.index.clear()
+                if chunks:
+                    self.index.add_chunks(chunks)
+                self.loaded_industry = active_ind
+        except Exception:
+            pass
+
     def retrieve(
         self,
         query: str,
@@ -19,33 +49,7 @@ class DocumentRetriever:
         department: Optional[str] = None,
         user_role: str = "CXO"
     ) -> List[Dict[str, Any]]:
-        # Auto-initialize or switch from active industry directory when using the global default index
-        if self.is_default_index:
-            try:
-                from pathlib import Path
-                from app.core.config_loader import config_loader
-                from app.ingestion.pipeline import pipeline
-
-                active_ind = config_loader.active_industry_id
-                if self.loaded_industry != active_ind or len(self.index.chunks) == 0:
-                    if active_ind in self._industry_chunks_cache:
-                        chunks = self._industry_chunks_cache[active_ind]
-                    else:
-                        data_dir = Path(config_loader.config_dir).resolve() / active_ind / "data" / "unstructured"
-                        if not data_dir.exists():
-                            data_dir = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries" / active_ind / "data" / "unstructured"
-                        if data_dir.exists():
-                            chunks, _ = pipeline.ingest_directory(data_dir)
-                            self._industry_chunks_cache[active_ind] = chunks
-                        else:
-                            chunks = []
-                    
-                    self.index.clear()
-                    if chunks:
-                        self.index.add_chunks(chunks)
-                    self.loaded_industry = active_ind
-            except Exception:
-                pass
+        self.ensure_index_loaded()
 
         # Map user role to maximum clearance
         role_clearance_map = {

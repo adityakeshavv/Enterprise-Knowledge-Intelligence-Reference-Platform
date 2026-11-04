@@ -22,8 +22,8 @@ def ensure_database_initialized():
         return
 
     # 1. If using SQLite, check if file exists or needs to be copied from pre-seeded asset
-    if settings.DATABASE_URL.startswith("sqlite:///"):
-        raw_path = settings.DATABASE_URL.replace("sqlite:///", "")
+    if settings.DATABASE_URL.startswith("sqlite"):
+        raw_path = settings.DATABASE_URL.replace("sqlite:////", "/").replace("sqlite:///", "")
         db_path = Path(raw_path)
         
         needs_seed_copy = not db_path.exists() or (db_path.exists() and db_path.stat().st_size < 1024)
@@ -35,6 +35,8 @@ def ensure_database_initialized():
                 Path.cwd() / "nebula9_reference.db",
                 Path(__file__).resolve().parent.parent.parent / "nebula9_reference.db",
                 Path(__file__).resolve().parent.parent.parent.parent / "nebula9_reference.db",
+                Path("/var/task/nebula9_reference.db"),
+                Path("/var/task/backend/nebula9_reference.db"),
             ]
             source_found = None
             for cand in candidates:
@@ -78,12 +80,6 @@ def ensure_database_initialized():
             db.close()
     except Exception as e:
         print(f"[{settings.APP_NAME}] Error verifying database initialization: {e}")
-
-# Execute eager initialization at module load
-try:
-    ensure_database_initialized()
-except Exception as init_err:
-    print(f"[{settings.APP_NAME}] Eager DB initialization error: {init_err}")
 
 def get_db():
     if not _is_db_initialized:

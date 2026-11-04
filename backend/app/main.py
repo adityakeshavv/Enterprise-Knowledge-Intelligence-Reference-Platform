@@ -14,38 +14,16 @@ from app.api.documents import router as documents_router
 from app.api.sql import router as sql_router
 from app.api.audit import router as audit_router
 from app.api.evaluation import router as evaluation_router
-from app.ingestion.pipeline import pipeline
-from app.retrieval.hybrid_index import hybrid_index
-
-# Eager startup initialization for serverless runtimes
-try:
-    ensure_database_initialized()
-    config_loader.reload_all()
-except Exception as e:
-    print(f"Warning during initial bootstrap: {e}")
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: ensure database initialized & seeded, configurations loaded
-    ensure_database_initialized()
-    seed_database()
-    config_loader.reload_all()
-
-    # Index unstructured documents for active industry
-    active_ind = config_loader.active_industry_id
-    data_dir = config_loader.config_dir / active_ind / "data" / "unstructured"
-    if data_dir.exists():
-        chunks, _ = pipeline.ingest_directory(data_dir)
-        hybrid_index.clear()
-        hybrid_index.add_chunks(chunks)
-        from app.retrieval.retriever import document_retriever
-        document_retriever._industry_chunks_cache[active_ind] = chunks
-        document_retriever.loaded_industry = active_ind
-        print(f"[{settings.APP_NAME}] Ingested {len(chunks)} document chunks into Hybrid Index.")
-
-    print(f"[{settings.APP_NAME}] Startup complete. Active industry: {config_loader.active_industry_id}")
+    # Lightweight initialization on app startup
+    try:
+        ensure_database_initialized()
+        config_loader.reload_all()
+        print(f"[{settings.APP_NAME}] Startup complete. Active industry: {config_loader.active_industry_id}")
+    except Exception as e:
+        print(f"[{settings.APP_NAME}] Startup warning: {e}")
     yield
-    # Shutdown logic if needed
     print(f"[{settings.APP_NAME}] Shutting down cleanly.")
 
 app = FastAPI(
