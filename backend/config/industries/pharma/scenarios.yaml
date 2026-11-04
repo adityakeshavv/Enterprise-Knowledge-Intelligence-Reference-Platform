@@ -1,0 +1,28 @@
+industry: "pharma"
+scenarios:
+  - id: "pharma-clinical-efficacy"
+    title: "CardioVastin Phase 3 Efficacy & Primary Endpoint Analysis"
+    category: "Clinical Development"
+    difficulty: "Cross-Source Reasoning"
+    question: "What was the primary endpoint efficacy of CardioVastin in Phase 3 trials, and what adverse event rates were reported?"
+    description: "Evaluates the platform's ability to cross-examine Phase 3 trial clinical telemetry against FDA review documents and clinical protocols."
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["efficacy_rate", "participant_count", "adverse_event_rate"]
+
+  - id: "pharma-pharmacovigilance-compliance"
+    title: "Serious Adverse Event Reporting Latency vs FDA Expedited Rules"
+    category: "Pharmacovigilance & Safety"
+    difficulty: "Compliance & Conflict Detection"
+    question: "Are serious adverse event reporting timelines in the trial database compliant with FDA 15-day expedited reporting rules under SOP-PV-042?"
+    description: "Analyzes adverse event records against internal pharmacovigilance SOPs, identifying whether any SAEs experienced reporting delays beyond regulatory mandates."
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["days_to_report", "reaction_severity", "is_serious"]
+
+  - id: "pharma-batch-release"
+    title: "CardioVastin Lot 4891 GMP Release & Dissolution Rate Evaluation"
+    category: "Quality Assurance & GMP"
+    difficulty: "Regulatory Audit"
+    question: "Does CardioVastin Lot 4891 meet GMP purity and dissolution specifications for commercial release, and what did the quality investigation conclude?"
+    description: "Checks analytical laboratory testing records for purity, dissolution rate, and microbial limits against cleanroom batch release SOPs."
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["purity_percentage", "dissolution_rate_mins", "release_status"]

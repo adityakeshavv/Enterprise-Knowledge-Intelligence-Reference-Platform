@@ -1,0 +1,42 @@
+industry: "manufacturing"
+sources:
+  structured:
+    type: "relational_db"
+    database_url_env: "DATABASE_URL"
+    default_schema: "public"
+    tables:
+      - name: "plant_downtime_events"
+        description: "Historical equipment stoppage records by plant, line, duration, and error codes."
+        key_columns: ["event_id", "plant_id", "line_id", "downtime_minutes", "error_code"]
+      - name: "maintenance_work_orders"
+        description: "Technician work orders, component replacements, costs, and labor hours."
+        key_columns: ["work_order_id", "plant_id", "line_id", "component_replaced", "cost_usd"]
+      - name: "supplier_component_quality"
+        description: "Supplier part defect logs and delivery quality metrics."
+        key_columns: ["batch_id", "supplier_id", "part_number", "defect_rate_ppm"]
+      - name: "production_line_metrics"
+        description: "Daily production throughput, scrap rates, and Overall Equipment Effectiveness (OEE)."
+        key_columns: ["id", "plant_id", "line_id", "planned_units", "actual_units", "scrap_units", "oee_percentage"]
+  unstructured:
+    type: "vector_store"
+    collection_name: "manufacturing_docs"
+    registered_documents:
+      - id: "DOC-SOP-LINE3"
+        filename: "SOP-Maint-Line3-Hydraulics-v2.pdf"
+        department: "Maintenance & Reliability"
+        classification: "Internal"
+      - id: "DOC-INCIDENT-Q1"
+        filename: "Plant_A_Shift_Incident_Logs_Q1.pdf"
+        department: "Plant Operations"
+        classification: "Internal"
+      - id: "DOC-SUPPLIER-APEX"
+        filename: "Supplier_Quality_Bulletin_Apex_2024.pdf"
+        department: "Procurement"
+        classification: "Confidential"
+  external:
+    type: "allowlisted_api"
+    endpoints:
+      - name: "industry_benchmarks"
+        description: "North American industrial manufacturing MTBF benchmark feed"
+        endpoint_url: "https://api.industrybenchmarks.local/v1/manufacturing/mtbf"
+        allowlisted: true

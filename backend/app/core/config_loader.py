@@ -10,10 +10,14 @@ class ConfigurationLoader:
         if not target.exists():
             # Try resolving from project root or backend parent
             from app.config import BASE_DIR
-            alt1 = BASE_DIR.parent / "config" / "industries"
-            alt2 = Path.cwd() / "config" / "industries"
-            alt3 = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries"
-            for alt in [alt1, alt2, alt3]:
+            candidates = [
+                BASE_DIR / "config" / "industries",
+                BASE_DIR.parent / "config" / "industries",
+                Path.cwd() / "backend" / "config" / "industries",
+                Path.cwd() / "config" / "industries",
+                Path(__file__).resolve().parent.parent.parent / "config" / "industries",
+            ]
+            for alt in candidates:
                 if alt.exists():
                     target = alt
                     break

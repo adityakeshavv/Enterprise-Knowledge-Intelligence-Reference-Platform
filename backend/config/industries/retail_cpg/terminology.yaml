@@ -1,0 +1,11 @@
+industry: "retail_cpg"
+terms:
+  SKU:
+    full_name: "Stock Keeping Unit"
+    definition: "Unique identifier for individual commercial products."
+  SellThrough:
+    full_name: "Sell-Through Rate"
+    definition: "Percentage of inventory received from suppliers that is actually sold to customers over a period."
+  Shrinkage:
+    full_name: "Inventory Shrinkage"
+    definition: "Loss of products between manufacturer receipt and point of sale due to damage or misplacement."

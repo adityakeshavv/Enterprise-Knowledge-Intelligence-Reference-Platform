@@ -13,6 +13,16 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 @router.post("/login", response_model=TokenResponse)
 def login(login_data: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == login_data.username).first()
+    if not user:
+        # Self-healing safeguard: if database was empty, seed immediately and retry
+        try:
+            if db.query(User).count() == 0:
+                from app.db.seeder import seed_database
+                seed_database()
+                user = db.query(User).filter(User.username == login_data.username).first()
+        except Exception:
+            pass
+
     if not user or not verify_password(login_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -32,6 +42,15 @@ def login(login_data: LoginRequest, db: Session = Depends(get_db)):
 @router.post("/token", response_model=TokenResponse)
 def oauth_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == form_data.username).first()
+    if not user:
+        try:
+            if db.query(User).count() == 0:
+                from app.db.seeder import seed_database
+                seed_database()
+                user = db.query(User).filter(User.username == form_data.username).first()
+        except Exception:
+            pass
+
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

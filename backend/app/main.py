@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
+from app.db.session import ensure_database_initialized
 from app.db.seeder import seed_database
 from app.core.config_loader import config_loader
 from app.api.auth import router as auth_router
@@ -14,9 +15,17 @@ from app.api.evaluation import router as evaluation_router
 from app.ingestion.pipeline import pipeline
 from app.retrieval.hybrid_index import hybrid_index
 
+# Eager startup initialization for serverless runtimes
+try:
+    ensure_database_initialized()
+    config_loader.reload_all()
+except Exception as e:
+    print(f"Warning during initial bootstrap: {e}")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: ensure database initialized & seeded, configurations loaded
+    ensure_database_initialized()
     seed_database()
     config_loader.reload_all()
 

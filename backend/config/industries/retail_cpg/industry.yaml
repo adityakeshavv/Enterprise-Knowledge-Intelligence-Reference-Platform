@@ -1,0 +1,17 @@
+id: "retail_cpg"
+name: "Retail & Consumer Packaged Goods"
+description: "Reference implementation for retail inventory pressure, promotional efficacy, and consumer sentiment."
+version: "1.0.0"
+active: true
+primary_entities:
+  - "SKU"
+  - "Region"
+  - "Store Cluster"
+  - "Promotional Campaign"
+  - "Inventory Channel"
+default_scenario_id: "retail-promo-underperformance"
+modules:
+  enable_documents: true
+  enable_structured_sql: true
+  enable_external_api: true
+  enable_evidence_validation: true

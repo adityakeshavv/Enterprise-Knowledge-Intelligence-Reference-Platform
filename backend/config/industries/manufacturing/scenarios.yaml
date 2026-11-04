@@ -1,0 +1,27 @@
+industry: "manufacturing"
+scenarios:
+  - id: "mfg-downtime-factors"
+    title: "Plant A Downtime Factors & Historical Solutions"
+    category: "Operational Efficiency"
+    difficulty: "Cross-Source Reasoning"
+    question: "What are the major factors contributing to production downtime at Plant A, and what actions have previously reduced similar downtime?"
+    description: "Flagship CXO question requiring simultaneous structured SQL analysis and maintenance SOP reasoning."
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["total_downtime_hours", "lost_revenue_usd", "top_affected_line"]
+
+  - id: "mfg-supplier-conflict"
+    title: "Supplier Quality Discrepancies & Maintenance Logs"
+    category: "Supplier Risk"
+    difficulty: "Conflict Detection"
+    question: "Which suppliers are associated with the highest quality-impact events, and what do supplier documents say about corrective actions?"
+    description: "Evaluates the platform's ability to cross-examine supplier batch defect rates against technician maintenance notes."
+    expected_agents: ["structured_data", "document_intelligence", "evidence_validation", "synthesis"]
+    highlight_metrics: ["defect_rate_ppm", "supplier_name", "batch_date"]
+
+  - id: "mfg-procedure-drift"
+    title: "Maintenance Protocol Changes vs Downtime Trend"
+    category: "Continuous Improvement"
+    difficulty: "Document Intelligence"
+    question: "What changed between previous and current hydraulic maintenance procedures, and is there evidence that the change affected downtime?"
+    expected_agents: ["document_intelligence", "structured_data", "evidence_validation", "synthesis"]
+    highlight_metrics: ["flush_interval_hours", "mtbf_increase"]
