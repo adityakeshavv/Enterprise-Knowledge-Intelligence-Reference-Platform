@@ -133,16 +133,16 @@ export async function loginUser(username: string, password: string): Promise<Aut
   if (!res.ok) {
     let detailMsg = "";
     try {
-      const body = await res.json();
-      detailMsg = body?.detail || body?.message || "";
-    } catch {
+      const rawText = await res.text();
       try {
-        const rawText = await res.text();
-        if (rawText && rawText.length < 200) {
+        const body = JSON.parse(rawText);
+        detailMsg = body?.detail || body?.message || "";
+      } catch {
+        if (rawText && rawText.length < 300) {
           detailMsg = rawText;
         }
-      } catch {}
-    }
+      }
+    } catch {}
 
     if (detailMsg) {
       throw new Error(detailMsg);

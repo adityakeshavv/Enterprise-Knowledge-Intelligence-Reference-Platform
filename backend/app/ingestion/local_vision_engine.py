@@ -3,8 +3,14 @@ import math
 import re
 from pathlib import Path
 from typing import List, Tuple, Dict, Any, Optional
-from PIL import Image
-import numpy as np
+try:
+    from PIL import Image
+    import numpy as np
+    VISION_LIBS_AVAILABLE = True
+except ImportError:
+    Image = None
+    np = None
+    VISION_LIBS_AVAILABLE = False
 
 try:
     from rapidocr_onnxruntime import RapidOCR

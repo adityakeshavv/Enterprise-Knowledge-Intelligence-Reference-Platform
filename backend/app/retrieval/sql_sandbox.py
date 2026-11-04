@@ -1,7 +1,14 @@
 import time
+import re
 from typing import List, Dict, Any, Tuple
-import sqlglot
-from sqlglot import exp
+try:
+    import sqlglot
+    from sqlglot import exp
+    SQLGLOT_AVAILABLE = True
+except ImportError:
+    sqlglot = None
+    exp = None
+    SQLGLOT_AVAILABLE = False
 from sqlalchemy import text
 from app.db.session import SessionLocal
 
@@ -46,6 +53,15 @@ class SQLSandbox:
         cleaned = raw_sql.strip().rstrip(";")
         if not cleaned:
             raise UnsafeQueryOperationError("Empty SQL query provided.")
+
+        if not SQLGLOT_AVAILABLE:
+            upper_sql = cleaned.upper()
+            if not upper_sql.startswith("SELECT"):
+                raise UnsafeQueryOperationError("Only read-only SELECT queries are permitted.")
+            for kw in FORBIDDEN_KEYWORDS:
+                if re.search(r'\b' + kw + r'\b', upper_sql):
+                    raise UnsafeQueryOperationError(f"Forbidden keyword '{kw}' detected.")
+            return cleaned
 
         # 1. Reject multiple statements
         parsed_expressions = sqlglot.parse(cleaned, read="sqlite")

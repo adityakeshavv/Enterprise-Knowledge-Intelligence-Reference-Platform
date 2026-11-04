@@ -2,8 +2,15 @@ import time
 import re
 from pathlib import Path
 from typing import List, Tuple, Optional
-import pymupdf
-import pymupdf4llm
+try:
+    import pymupdf
+    import pymupdf4llm
+    PYMUPDF_AVAILABLE = True
+except ImportError:
+    pymupdf = None
+    pymupdf4llm = None
+    PYMUPDF_AVAILABLE = False
+
 from app.ingestion.models import DocumentMetadata, DocumentChunk, IngestionReport
 
 class PyMuPDFIngestor:
@@ -37,6 +44,49 @@ class PyMuPDFIngestor:
                 error="File is empty (0 bytes)."
             )
             return [], report
+
+        if not PYMUPDF_AVAILABLE:
+            try:
+                from pypdf import PdfReader
+                reader = PdfReader(str(path))
+                chunks = []
+                for page_idx, page in enumerate(reader.pages, start=1):
+                    txt = page.extract_text() or ""
+                    if txt.strip():
+                        chunk = DocumentChunk(
+                            chunk_id=f"{metadata.doc_id}_P{page_idx}_C1",
+                            doc_id=metadata.doc_id,
+                            content=txt,
+                            page_number=page_idx,
+                            token_count=len(txt.split()),
+                            classification=metadata.classification,
+                            department=metadata.department
+                        )
+                        chunks.append(chunk)
+                report = IngestionReport(
+                    doc_id=metadata.doc_id,
+                    filename=metadata.filename,
+                    file_type="pdf",
+                    chunks_created=len(chunks),
+                    pages_or_sheets=len(reader.pages),
+                    parser_used="pypdf_fallback",
+                    processing_time_ms=(time.time() - start_time) * 1000,
+                    status="SUCCESS"
+                )
+                return chunks, report
+            except Exception as e:
+                report = IngestionReport(
+                    doc_id=metadata.doc_id,
+                    filename=metadata.filename,
+                    file_type="pdf",
+                    chunks_created=0,
+                    pages_or_sheets=0,
+                    parser_used="pypdf_fallback",
+                    processing_time_ms=(time.time() - start_time) * 1000,
+                    status="FAILED",
+                    error=str(e)
+                )
+                return [], report
 
         try:
             # Open document with PyMuPDF
