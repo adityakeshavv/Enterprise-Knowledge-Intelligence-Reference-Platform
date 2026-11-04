@@ -1,3 +1,13 @@
+import sys
+from pathlib import Path
+
+# Ensure backend directory is on sys.path so 'import app...' works from any working directory
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
+if str(_BACKEND_DIR.parent) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR.parent))
+
 from contextlib import asynccontextmanager
 import traceback
 from fastapi import FastAPI, Request
