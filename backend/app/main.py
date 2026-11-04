@@ -1,5 +1,7 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+import traceback
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.db.session import ensure_database_initialized
@@ -61,6 +63,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    tb = traceback.format_exc()
+    print(f"[ERROR] Unhandled exception on {request.method} {request.url.path}: {tb}")
+    return JSONResponse(
+        status_code=500,
+        content={
+            "detail": f"{type(exc).__name__}: {str(exc)}",
+            "type": type(exc).__name__,
+            "message": str(exc),
+            "traceback": [line.strip() for line in tb.splitlines()[-6:] if line.strip()]
+        }
+    )
 
 # Mount API Routers (mounted both at /api and root / so any proxy or gateway path matches)
 api_routers = [

@@ -134,9 +134,14 @@ export async function loginUser(username: string, password: string): Promise<Aut
     let detailMsg = "";
     try {
       const body = await res.json();
-      detailMsg = body?.detail || "";
+      detailMsg = body?.detail || body?.message || "";
     } catch {
-      // Body is not JSON (e.g. HTML 404/500/502 page from serverless host)
+      try {
+        const rawText = await res.text();
+        if (rawText && rawText.length < 200) {
+          detailMsg = rawText;
+        }
+      } catch {}
     }
 
     if (detailMsg) {
