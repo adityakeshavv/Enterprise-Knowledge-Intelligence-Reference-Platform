@@ -1,7 +1,10 @@
 import type { IndustrySummary, IndustryDetail, QueryResponse } from "../types";
 
-// When hosted together on Vercel, relative '/api' calls route seamlessly to the Python function
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
+// Auto-normalize API base: supports relative '/api', 'https://backend.railway.app', or 'https://backend.railway.app/api'
+const envUrl = (import.meta.env.VITE_API_BASE_URL || "").trim();
+const API_BASE = envUrl
+  ? (envUrl.endsWith("/api") ? envUrl : `${envUrl.replace(/\/+$/, "")}/api`)
+  : "/api";
 
 
 export interface AuthSession {
