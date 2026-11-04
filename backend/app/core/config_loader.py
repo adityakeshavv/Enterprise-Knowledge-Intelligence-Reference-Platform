@@ -6,7 +6,18 @@ from app.config import settings
 
 class ConfigurationLoader:
     def __init__(self, config_dir: Optional[str] = None):
-        self.config_dir = Path(config_dir or settings.CONFIG_DIR)
+        target = Path(config_dir or settings.CONFIG_DIR)
+        if not target.exists():
+            # Try resolving from project root or backend parent
+            from app.config import BASE_DIR
+            alt1 = BASE_DIR.parent / "config" / "industries"
+            alt2 = Path.cwd() / "config" / "industries"
+            alt3 = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries"
+            for alt in [alt1, alt2, alt3]:
+                if alt.exists():
+                    target = alt
+                    break
+        self.config_dir = target.resolve()
         self.active_industry_id = settings.DEFAULT_INDUSTRY
         self._cached_industries: Dict[str, Dict[str, Any]] = {}
         self.reload_all()

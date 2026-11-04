@@ -1,6 +1,8 @@
 import type { IndustrySummary, IndustryDetail, QueryResponse } from "../types";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
+// When hosted together on Vercel, relative '/api' calls route seamlessly to the Python function
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
+
 
 export interface AuthSession {
   access_token: string;

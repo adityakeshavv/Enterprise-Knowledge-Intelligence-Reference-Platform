@@ -72,14 +72,15 @@ def health_check():
         "available_industries": [i["id"] for i in config_loader.list_available_industries()]
     }
 
-# Mount frontend production build if available
+# Mount frontend production build if available (local monolithic mode only, Vercel routes frontend directly)
 import os
 from pathlib import Path
 from fastapi.staticfiles import StaticFiles
 
-frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if frontend_dist.exists():
-    app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
+if not os.environ.get("VERCEL"):
+    frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+    if frontend_dist.exists():
+        app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
 
 
 if __name__ == "__main__":
