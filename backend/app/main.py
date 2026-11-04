@@ -27,6 +27,9 @@ async def lifespan(app: FastAPI):
         chunks, _ = pipeline.ingest_directory(data_dir)
         hybrid_index.clear()
         hybrid_index.add_chunks(chunks)
+        from app.retrieval.retriever import document_retriever
+        document_retriever._industry_chunks_cache[active_ind] = chunks
+        document_retriever.loaded_industry = active_ind
         print(f"[{settings.APP_NAME}] Ingested {len(chunks)} document chunks into Hybrid Index.")
 
     print(f"[{settings.APP_NAME}] Startup complete. Active industry: {config_loader.active_industry_id}")

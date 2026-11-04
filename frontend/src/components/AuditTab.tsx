@@ -61,6 +61,7 @@ export const AuditTab: React.FC<AuditTabProps> = ({
   const [evalReports, setEvalReports] = useState<Record<string, EvaluationSuiteReport> | null>(null);
   const [evalLoading, setEvalLoading] = useState<boolean>(false);
   const [evalIndustry, setEvalIndustry] = useState<string>("all");
+  const [evalCategoryFilter, setEvalCategoryFilter] = useState<string>("all");
   const [selectedEvalItem, setSelectedEvalItem] = useState<EvaluationItemResult | null>(null);
 
   const loadData = async () => {
@@ -155,7 +156,7 @@ export const AuditTab: React.FC<AuditTabProps> = ({
   };
 
   // Filter benchmark cases
-  const displayedEvalItems: EvaluationItemResult[] = [];
+  let displayedEvalItems: EvaluationItemResult[] = [];
   if (evalReports) {
     if (evalIndustry === "all" || evalIndustry === "manufacturing") {
       if (evalReports.manufacturing) {
@@ -166,6 +167,9 @@ export const AuditTab: React.FC<AuditTabProps> = ({
       if (evalReports.pharma) {
         displayedEvalItems.push(...evalReports.pharma.results);
       }
+    }
+    if (evalCategoryFilter !== "all") {
+      displayedEvalItems = displayedEvalItems.filter(item => item.category === evalCategoryFilter);
     }
   }
 
@@ -465,8 +469,52 @@ export const AuditTab: React.FC<AuditTabProps> = ({
             </div>
           )}
 
+          {/* Category Filter Toolbar & Tooltip Guide */}
+          <div className="eval-filter-toolbar" style={{ marginTop: "1rem" }}>
+            <div className="eval-category-tabs">
+              <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", marginRight: "0.3rem" }}>Filter:</span>
+              {[
+                { id: "all", label: "All Categories" },
+                { id: "CROSS_SOURCE", label: "Cross Source" },
+                { id: "STRUCTURED_TELEMETRY", label: "Structured Telemetry" },
+                { id: "DOCUMENT_PROCEDURE", label: "Doc Procedures" },
+                { id: "CONFLICT_DETECTION", label: "Conflict Alerts" },
+                { id: "SAFE_ABSTENTION", label: "Safe Abstention" },
+                { id: "SECURITY_GUARDRAIL", label: "Security Guardrails" }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  className={`eval-cat-btn ${evalCategoryFilter === tab.id ? "active" : ""}`}
+                  onClick={() => setEvalCategoryFilter(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="eval-legend-info">
+              <div className="grounding-tooltip-wrapper">
+                <span className="grounding-status-pill fully-grounded">
+                  <CheckCircle2 size={12} /> Fully Grounded (≥85%)
+                </span>
+                <span className="tooltip-text">
+                  <strong>Fully Grounded (≥85%):</strong> Claims and numerical assertions are mathematically corroborated by indexed source citations without unverified assumptions.
+                </span>
+              </div>
+              <div className="grounding-tooltip-wrapper">
+                <span className="grounding-status-pill partially-grounded">
+                  <AlertTriangle size={12} /> Partially Grounded (50-84%)
+                </span>
+                <span className="tooltip-text">
+                  <strong>Partially Grounded (50-84%):</strong> Factual intent aligns with sources, but uses domain paraphrasing or non-exact regulatory phrasing (e.g. CDER summary narratives).
+                </span>
+              </div>
+            </div>
+          </div>
+
           {/* Benchmark Cases Table */}
-          <div className="audit-table-wrap" style={{ marginTop: "1rem" }}>
+          <div className="audit-table-wrap" style={{ marginTop: "0.75rem" }}>
             <table className="audit-table">
               <thead>
                 <tr>
@@ -480,29 +528,45 @@ export const AuditTab: React.FC<AuditTabProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {displayedEvalItems.map((item) => (
-                  <tr key={item.eval_id} className="audit-row-clickable" onClick={() => setSelectedEvalItem(item)}>
-                    <td><code>{item.eval_id}</code></td>
-                    <td><span className="category-pill">{item.category.replace(/_/g, " ")}</span></td>
-                    <td className="query-preview-col" title={item.query}>{item.query}</td>
-                    <td>
-                      {item.passed ? (
-                        <span className="audit-status-badge status-success"><CheckCircle2 size={13} /> PASS</span>
-                      ) : (
-                        <span className="audit-status-badge status-blocked"><XCircle size={13} /> FAIL</span>
-                      )}
-                    </td>
-                    <td>{(item.grounding_score * 100).toFixed(0)}%</td>
-                    <td>{item.latency_ms.toFixed(0)} ms</td>
-                    <td>
-                      {item.passed ? (
-                        <span className="text-emerald" style={{ fontSize: "0.76rem" }}>Fully Grounded</span>
-                      ) : (
-                        <span className="text-rose" style={{ fontSize: "0.76rem" }}>{item.failure_reasons.join(", ")}</span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                {displayedEvalItems.map((item) => {
+                  const isFullyGrounded = item.grounding_score >= 0.85;
+                  return (
+                    <tr key={item.eval_id} className="audit-row-clickable" onClick={() => setSelectedEvalItem(item)}>
+                      <td><code>{item.eval_id}</code></td>
+                      <td><span className="category-pill">{item.category.replace(/_/g, " ")}</span></td>
+                      <td className="query-preview-col" title={item.query}>{item.query}</td>
+                      <td>
+                        {item.passed ? (
+                          <span className="audit-status-badge status-success"><CheckCircle2 size={13} /> PASS</span>
+                        ) : (
+                          <span className="audit-status-badge status-blocked"><XCircle size={13} /> FAIL</span>
+                        )}
+                      </td>
+                      <td>
+                        <div className="grounding-tooltip-wrapper">
+                          <span className={`grounding-status-pill ${isFullyGrounded ? "fully-grounded" : "partially-grounded"}`}>
+                            {(item.grounding_score * 100).toFixed(0)}%
+                          </span>
+                          <span className="tooltip-text">
+                            {isFullyGrounded
+                              ? "Fully Grounded: Assertions directly grounded in verified tokens."
+                              : "Partially Grounded: Minor paraphrase discrepancy against dense regulatory syntax."}
+                          </span>
+                        </div>
+                      </td>
+                      <td>{item.latency_ms.toFixed(0)} ms</td>
+                      <td>
+                        {item.passed ? (
+                          <span className={isFullyGrounded ? "text-emerald" : "text-amber"} style={{ fontSize: "0.76rem" }}>
+                            {isFullyGrounded ? "Fully Grounded" : "Partially Grounded (Valid Meaning)"}
+                          </span>
+                        ) : (
+                          <span className="text-rose" style={{ fontSize: "0.76rem" }}>{item.failure_reasons.join(", ")}</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -227,6 +227,17 @@ class EvaluationEngine:
                 results=[]
             )
 
+        # Pre-warm document index for this industry so evaluation measures
+        # production query execution rather than initial cold-start OCR parsing
+        try:
+            from app.retrieval.retriever import document_retriever
+            orig_ind = config_loader.active_industry_id
+            config_loader.set_active_industry(industry_id)
+            document_retriever.retrieve("warmup query", top_k=1)
+            config_loader.set_active_industry(orig_ind)
+        except Exception:
+            pass
+
         results: List[EvaluationItemResult] = []
         for item in items:
             res = self.evaluate_item(item)

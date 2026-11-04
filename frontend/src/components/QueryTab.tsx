@@ -102,6 +102,17 @@ export const QueryTab: React.FC<QueryTabProps> = ({
             </div>
           </div>
         )}
+
+        {/* Real-time Streaming & Graph Generation Indicator */}
+        {isLoading && (
+          <div className="streaming-feedback-bar">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <Loader2 size={14} className="animate-spin text-accent" />
+              <span>Orchestrating agents: SQL sandboxing, hybrid vector retrieval & dynamic evidence graph compilation...</span>
+            </div>
+            <span style={{ fontSize: "0.7rem", opacity: 0.85, fontFamily: "ui-monospace, monospace" }}>STREAMING TOKENS ACTIVE</span>
+          </div>
+        )}
       </section>
 
       {/* Query Results / Empty State */}

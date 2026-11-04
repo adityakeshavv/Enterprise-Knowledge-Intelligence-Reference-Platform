@@ -10,6 +10,7 @@ class DocumentRetriever:
         self.index = index
         self.is_default_index = (index is hybrid_index)
         self.loaded_industry: Optional[str] = None
+        self._industry_chunks_cache: Dict[str, List[DocumentChunk]] = {}
 
     def retrieve(
         self,
@@ -27,14 +28,22 @@ class DocumentRetriever:
 
                 active_ind = config_loader.active_industry_id
                 if self.loaded_industry != active_ind or len(self.index.chunks) == 0:
-                    data_dir = Path(config_loader.config_dir).resolve() / active_ind / "data" / "unstructured"
-                    if not data_dir.exists():
-                        data_dir = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries" / active_ind / "data" / "unstructured"
-                    if data_dir.exists():
-                        self.index.clear()
-                        chunks, _ = pipeline.ingest_directory(data_dir)
+                    if active_ind in self._industry_chunks_cache:
+                        chunks = self._industry_chunks_cache[active_ind]
+                    else:
+                        data_dir = Path(config_loader.config_dir).resolve() / active_ind / "data" / "unstructured"
+                        if not data_dir.exists():
+                            data_dir = Path(__file__).resolve().parent.parent.parent.parent / "config" / "industries" / active_ind / "data" / "unstructured"
+                        if data_dir.exists():
+                            chunks, _ = pipeline.ingest_directory(data_dir)
+                            self._industry_chunks_cache[active_ind] = chunks
+                        else:
+                            chunks = []
+                    
+                    self.index.clear()
+                    if chunks:
                         self.index.add_chunks(chunks)
-                        self.loaded_industry = active_ind
+                    self.loaded_industry = active_ind
             except Exception:
                 pass
 

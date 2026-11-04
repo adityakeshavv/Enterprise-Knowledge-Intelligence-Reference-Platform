@@ -83,28 +83,40 @@
 
 ---
 
-### Scene 3: Manufacturing Investigation — Cross-Source Multi-Agent Synthesis (01:30 – 02:45)
+### Scene 3: Step-by-Step Query Execution & Multi-Agent Orchestration (01:30 – 02:45)
 
 **On Screen**:
 - Click the **"Knowledge"** tab on the sidebar. Briefly show the indexed files: `SOP-MN-014.pdf`, `Supplier_Defects_Q1.xlsx`, and SQL tables (`plant_downtime_events`, `maintenance_work_orders`).
 - Navigate to the **"Query"** tab (Investigation Studio).
-- Select or type the headline CXO query:
+- Note the brightened glowing search composer input bar.
+- Click the suggestion chip:
   > *"What are the major factors contributing to production downtime at Plant A, and what actions have previously reduced similar downtime?"*
-- Click **"Investigate Question"**.
-- Watch the live loading state complete, transitioning to the Executive Briefing.
+- Observe the **streaming feedback visualizer** appear with the pulse glow: *"Orchestrating agents: SQL sandboxing, hybrid vector retrieval & dynamic evidence graph compilation..."*
+- Once results arrive, click the banner: **"Inspect Agent Trace & Graph"** to transition to the **Agent Trace** tab.
+- **Side-by-Side Architectural Mapping**: Display the **Agent Orchestration Flowchart** (`Documents/Nebula9_Agent_Orchestration_Flowchart.png`) alongside the live execution trace UI.
+- Walk through the 4-step execution flow:
+  1. **Input Query & Security/Entity Gate**: Query classified as `cross_source_investigation`, extract entities (`Plant A`, `Assembly Line 3`, `hydraulic seal`).
+  2. **Agent Decision Flow & Task Decomposition**: Orchestrator decomposes query into 3 parallel sub-plans:
+     - Sub-Plan A $\rightarrow$ SQL Specialist Agent (`query plant_downtime_events`).
+     - Sub-Plan B $\rightarrow$ Vector Doc Retrieval Agent (`query SOP-MN-014.pdf`).
+     - Sub-Plan C $\rightarrow$ Tabular Specialist Agent (`query Supplier_Defects_Q1.xlsx`).
+  3. **Dynamic Bipartite Evidence Graph Building**: Aggregating structured rows and text chunks into a bipartite provenance graph connecting questions, subtasks, data records, and findings.
+  4. **Validation & Final Grounded Output**: Grounding scored at 94%, conflict `[CONF-01]` flagged, executive briefing synthesized.
 
 **Speaker Dialogue**:
-> *"Let's look at the first business problem in our Manufacturing pack. A site director asks: 'What are the major factors contributing to production downtime at Plant A, and what actions have previously reduced similar downtime?'*
+> *"Let's look at a live, step-by-step query execution in our Manufacturing pack. A site director asks: 'What are the major factors contributing to production downtime at Plant A, and what actions have previously reduced similar downtime?'*
 >
-> *Answering this reliably is impossible from a single document. It requires querying relational downtime telemetry in SQL, inspecting maintenance work orders, analyzing supplier component defect rates in spreadsheets, and reading engineering SOPs.*
+> *Watch what happens under the hood as we map the live execution trace directly back to our **Agent Orchestration Flowchart**.*
 >
-> *Let's dispatch the multi-agent pipeline.*
+> *Step 1: The input enters the **Orchestration Gate**. The Query Classifier and Entity Extractor analyze the intent, recognizing this as a multi-source investigation requiring telemetry, documentation, and vendor quality data.*
 >
-> *Within milliseconds, the platform returns a complete, synthesized Executive Briefing:*
-> *1. An executive summary highlighting the primary bottleneck: **1,080 minutes of hydraulic pressure seal failure on Assembly Line 3**.*
-> *2. Critical KPI metric cards: Total downtime hours, affected production lines, and root cause category.*
-> *3. Explicitly categorized findings distinguishing **Verified Facts** from **Analytical Inferences**.*
-> *4. Direct, inspectable citation pills: clicking `[SQL-01]` or `[DOC-01]` reveals the exact SQL query and the page-numbered maintenance manual excerpt."*
+> *Step 2: The Orchestrator generates a DAG execution plan, dispatching three specialized agents in parallel: the SQL Specialist queries downtime minutes, the Vector Agent searches engineering SOPs, and the Tabular Agent analyzes supplier defect batches.*
+>
+> *Step 3: In the Execution Trace view, you can see these sub-tasks converging as our Dynamic Evidence Graph Builder links raw telemetry records and document chunks into a unified bipartite provenance graph.*
+>
+> *Step 4: Finally, the Evidence Validation Agent verifies every factual assertion against source tokens, identifies any operational contradictions, and delivers a fully grounded Executive Briefing with verified citations.*
+>
+> *Notice our results: an executive summary highlighting the 1,080 minutes of hydraulic pressure seal failure, verified KPI metrics, clear distinction between Verified Facts and Inferences, and inspectable citations like `[SQL-01]` and `[DOC-01]`."*
 
 ---
 
@@ -112,8 +124,8 @@
 
 **On Screen**:
 - Point to the **Grounding Score pill (94% Verified)** and the amber alert banner: **`[CONF-01] Maintenance Sign-off vs. Unscheduled Downtime Recurrence`**.
-- Click the **"Evidence Graph"** button in the answer toolbar. An interactive visual SVG graph appears connecting the Query $\rightarrow$ Tasks $\rightarrow$ Sources (`plant_downtime_events`, `SOP-MN-014.pdf`, `Supplier_Defects_Q1.xlsx`) $\rightarrow$ Findings.
-- Close the graph and highlight the conflict recommendation.
+- Click the **"Evidence Graph"** button in the answer toolbar. An interactive visual SVG graph appears connecting Query $\rightarrow$ Subtasks $\rightarrow$ Sources (`plant_downtime_events`, `SOP-MN-014.pdf`, `Supplier_Defects_Q1.xlsx`) $\rightarrow$ Verified Claims.
+- Close the graph and highlight the operational conflict resolution recommendation.
 
 **Speaker Dialogue**:
 > *"Now let's examine the core innovation: **Evidence & Trust**.*
@@ -125,7 +137,7 @@
 >
 > *Instead of blindly asserting that maintenance fixed the issue, the platform alerts the executive to the recurring failure and recommends immediate inspection of actuator rod tolerances.*
 >
-> *Clicking 'Evidence Graph' allows an auditor or engineer to inspect the complete bipartite provenance graph showing every step of reasoning."*
+> *Clicking 'Evidence Graph' allows an auditor or engineer to inspect the complete bipartite provenance graph showing every step of reasoning, exactly as mapped in our Orchestration Flowchart."*
 
 ---
 
@@ -206,17 +218,26 @@
 **On Screen**:
 - At the top of the Audit tab, click the sub-view button: **"Gold Benchmark Evaluation (PRD §26)"**.
 - Show the two industry summary cards:
-  - **Manufacturing**: 15 Cases | **100.0% Pass Rate** | 100% Grounding | 3 ms Median Latency
-  - **Pharma & Life Sciences**: 15 Cases | **100.0% Pass Rate** | 92% Grounding | 4 ms Median Latency
-- Hover over the **"Run Benchmark Suite"** button.
-- Scroll through the 30 benchmark fixtures showcasing categories: `CROSS_SOURCE`, `STRUCTURED_TELEMETRY`, `DOCUMENT_PROCEDURE`, `CONFLICT_DETECTION`, `SAFE_ABSTENTION`, `SECURITY_GUARDRAIL`.
+  - **Manufacturing**: 15 Cases | **100.0% Pass Rate** | **100% Grounding** | 4 ms Median Latency
+  - **Pharma & Life Sciences**: 15 Cases | **100.0% Pass Rate** | **100% Grounding** | 4 ms Median Latency
+- **Interactive Category Filtering**:
+  - Click through the new category filter tabs: **`Cross Source`**, **`Structured Telemetry`**, **`Doc Procedures`**, **`Conflict Alerts`**, **`Safe Abstention`**, and **`Security Guardrails`**.
+  - Show how the table dynamically adapts to focus on specific operational domains.
+- **Grounding Tooltip Walkthrough**:
+  - Hover over the **"Fully Grounded (≥85%)"** status badge in the legend and in a table row to display the tooltip: *"Claims and numerical assertions are mathematically corroborated by indexed source citations without unverified assumptions."*
+  - Hover over the **"Partially Grounded (50-84%)"** badge (e.g. `PHR-007` or `PHR-015`) to explain: *"Factual intent aligns with sources, but uses domain paraphrasing or non-exact regulatory phrasing."*
+- Click **"Run Benchmark Suite"** to demonstrate live, automated re-verification across all 30 fixtures.
 
 **Speaker Dialogue**:
 > *"How do we prove that the platform maintains this accuracy at scale?*
 >
 > *In accordance with PRD Section 26, we built an automated **Quantitative Evaluation Engine** running a gold-standard benchmark suite of 30 curated test cases across Manufacturing and Life Sciences.*
 >
-> *This isn't hypothetical marketing: as you can see from our live evaluation dashboard, the platform achieves a **100% pass rate** across all 30 benchmarks:*
+> *Notice our newly updated benchmark interface: non-technical evaluators can now filter directly by category—from Cross-Source investigations to Conflict Detection and Adversarial Guardrails.*
+>
+> *Hovering over our grounding badges displays clear, intuitive definitions: 'Fully Grounded' means every assertion is mathematically anchored to source citations, while 'Partially Grounded' accounts for nuanced clinical paraphrasing.*
+>
+> *As you can see, the platform achieves an overall **100% pass rate** across all 30 benchmarks:*
 > *- **100% conflict detection accuracy** on known operational discrepancies.*
 > *- **100% safe abstention accuracy** on unindexed and out-of-scope inquiries.*
 > *- **100% security interception rate** on prompt injection and credential harvesting.*

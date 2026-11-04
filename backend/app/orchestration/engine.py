@@ -293,7 +293,7 @@ class ModularPipelineEngine:
                 }
 
                 for cit in unstructured_res.citations:
-                    if not any(c.citation_id == cit.citation_id for c in state.citations):
+                    if not any(c.reference == cit.reference for c in state.citations):
                         state.citations.append(cit)
 
                 step6 = tracer.record_stage_step(
@@ -607,7 +607,7 @@ class ModularPipelineEngine:
                 }
 
                 for cit in unstructured_res.citations:
-                    if not any(c.citation_id == cit.citation_id for c in state.citations):
+                    if not any(c.reference == cit.reference for c in state.citations):
                         state.citations.append(cit)
 
                 step6 = tracer.record_stage_step(
