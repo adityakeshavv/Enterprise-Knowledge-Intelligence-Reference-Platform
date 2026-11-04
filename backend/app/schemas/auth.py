@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, ConfigDict
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 class LoginRequest(BaseModel):
@@ -17,7 +17,7 @@ class UserProfile(BaseModel):
 
     id: int
     username: str
-    email: EmailStr
+    email: str
     full_name: str
     role: str
     is_active: bool
