@@ -119,15 +119,44 @@ export async function executeQuery(query: string, industryId?: string): Promise<
 }
 
 export async function loginUser(username: string, password: string): Promise<AuthSession> {
-  const res = await fetch(`${API_BASE}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-  });
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-    throw new Error(body?.detail || "We couldn’t sign you in. Check your username and password.");
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+  } catch (networkErr: any) {
+    throw new Error(`Unable to reach the backend API (${API_BASE}/auth/login). Check internet connection or CORS settings.`);
   }
+
+  if (!res.ok) {
+    let detailMsg = "";
+    try {
+      const body = await res.json();
+      detailMsg = body?.detail || "";
+    } catch {
+      // Body is not JSON (e.g. HTML 404/500/502 page from serverless host)
+    }
+
+    if (detailMsg) {
+      throw new Error(detailMsg);
+    }
+    if (res.status === 401) {
+      throw new Error("Incorrect username or password. Please verify credentials.");
+    }
+    if (res.status === 404) {
+      throw new Error(`Backend route not found (404 at ${API_BASE}/auth/login). The backend service may still be building.`);
+    }
+    if (res.status === 502 || res.status === 504) {
+      throw new Error(`Backend unavailable (${res.status} Gateway Timeout). The serverless function failed to boot.`);
+    }
+    if (res.status === 500) {
+      throw new Error(`Server error (500). Please check Vercel function runtime logs.`);
+    }
+    throw new Error(`Sign in failed (${res.status} ${res.statusText}).`);
+  }
+
   const session = (await res.json()) as AuthSession;
   saveAuthSession(session);
   return session;

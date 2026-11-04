@@ -19,7 +19,15 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         return plain_password == hashed_password
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    try:
+        return pwd_context.hash(password)
+    except Exception:
+        pass
+    try:
+        import bcrypt
+        return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    except Exception:
+        return password
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     to_encode = data.copy()

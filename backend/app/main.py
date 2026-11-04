@@ -62,16 +62,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount API Routers
-app.include_router(auth_router, prefix="/api")
-app.include_router(config_router, prefix="/api")
-app.include_router(query_router, prefix="/api")
-app.include_router(documents_router, prefix="/api")
-app.include_router(sql_router, prefix="/api")
-app.include_router(audit_router, prefix="/api")
-app.include_router(evaluation_router, prefix="/api")
+# Mount API Routers (mounted both at /api and root / so any proxy or gateway path matches)
+api_routers = [
+    auth_router,
+    config_router,
+    query_router,
+    documents_router,
+    sql_router,
+    audit_router,
+    evaluation_router,
+]
+
+for r in api_routers:
+    app.include_router(r, prefix="/api")
+    app.include_router(r)
 
 @app.get("/api/health")
+@app.get("/health")
 def health_check():
     return {
         "status": "healthy",
